@@ -1,0 +1,308 @@
+﻿<include file="Common/header"/>
+<link href="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/css/H-ui.admin.css" rel="stylesheet" type="text/css"/>
+<title>我的桌面</title>
+</head>
+<body>
+<div class="pd-20" style="padding-top:20px;">
+	<p class="f-20 text-success">
+		欢迎使用 LHK后台管理系统 ！
+	</p>
+	<p>
+		登录次数：{$admin_hits} &nbsp;&nbsp; 上次登录IP：{$Think.session.admin.admin_ip} &nbsp;&nbsp; 上次登录时间：{$Think.session.admin.admin_logintime|date='Y-m-d H:i:s',###}
+	</p>
+	<!-- <table class="table table-border table-bordered table-bg">
+	<thead>
+	<tr>
+		<th colspan="7" scope="col">
+			信息统计
+		</th>
+	</tr>
+	<tr class="text-c">
+		<th>
+			统计
+		</th>
+		<th>
+			资讯库
+		</th>
+		<th>
+			图片库
+		</th>
+		<th>
+			产品库
+		</th>
+		<th>
+			用户
+		</th>
+		<th>
+			管理员
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr class="text-c">
+		<td>
+			总数
+		</td>
+		<td>
+			92
+		</td>
+		<td>
+			9
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			8
+		</td>
+		<td>
+			20
+		</td>
+	</tr>
+	<tr class="text-c">
+		<td>
+			今日
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+	</tr>
+	<tr class="text-c">
+		<td>
+			昨日
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+	</tr>
+	<tr class="text-c">
+		<td>
+			本周
+		</td>
+		<td>
+			2
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+	</tr>
+	<tr class="text-c">
+		<td>
+			本月
+		</td>
+		<td>
+			2
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+		<td>
+			0
+		</td>
+	</tr>
+	</tbody>
+	</table>
+	 -->
+	<table class="table table-border table-bordered table-bg mt-20">
+	<thead>
+	<tr>
+		<th colspan="2" scope="col">
+			服务器信息
+		</th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr>
+		<td>
+			服务器域名（IP地址 端口）
+		</td>
+		<td>
+			{$Think.server.SERVER_NAME}（{$Think.server.SERVER_ADDR}:{$Think.server.SERVER_PORT}）
+		</td>
+	</tr>
+	<tr>
+		<td>
+			服务器操作系统
+		</td>
+		<td>
+			{$Think.const.PHP_OS}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			服务器版本
+		</td>
+		<td>
+			{$Think.server.SERVER_SOFTWARE}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			服务器当前时间（北京时间）
+		</td>
+		<td>
+			{:date('Y年n月j日 H:i:s')}（{:gmdate("Y年n月j日 H:i:s", time() + 8 * 3600)}）
+		</td>
+	</tr>
+	<tr>
+		<td>
+			PHP版本
+		</td>
+		<td>
+			{$Think.const.PHP_VERSION}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			PHP运行方式
+		</td>
+		<td>
+			{:php_sapi_name()}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			执行时间限制
+		</td>
+		<td>
+			{:ini_get('max_execution_time')}秒
+		</td>
+	</tr>
+	<tr>
+		<td>
+			上传附件限制
+		</td>
+		<td>
+			{:ini_get('upload_max_filesize')}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Zend版本
+		</td>
+		<td>
+			{:Zend_Version()}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			请求方法
+		</td>
+		<td>
+			{$Think.server.REQUEST_METHOD}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			注册全局变量（register_globals）
+		</td>
+		<td>
+			<if condition="get_cfg_var('register_globals') eq 1">ON<else/>OFF</if>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			开启魔术引用（magic_quotes_gpc）
+		</td>
+		<td>
+			<if condition="get_magic_quotes_gpc() heq 1">YES<else/>NO</if>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			magic_quotes_runtime
+		</td>
+		<td>
+			<if condition="get_magic_quotes_runtime() heq 1">YES<else/>NO</if>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			ThinkPHP版本
+		</td>
+		<td>
+			{$Think.const.THINK_VERSION} [ <a href="http://thinkphp.cn" target="_blank">查看最新版本</a> ]
+		</td>
+	</tr>
+	<tr>
+		<td>
+			本文件所在文件夹
+		</td>
+		<td>
+			{$Think.server.DOCUMENT_ROOT}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			当前系统用户名
+		</td>
+		<td>
+			{$Think.server.USER}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			系统所在文件夹
+		</td>
+		<td>
+			{$Think.server.HOME}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			剩余空间
+		</td>
+		<td>
+			{:round((disk_free_space(".")/(1024*1024)),2)}M
+		</td>
+	</tr>
+	</tbody>
+	</table>
+</div>
+<footer class="footer">
+<p>
+	Copyright &copy;2015 LHK by H-ui.admin.v2.3
+</p>
+</footer>
+<include file="Common/footer"/>
+</body>
+</html>
