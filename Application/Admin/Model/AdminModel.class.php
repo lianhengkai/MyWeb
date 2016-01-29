@@ -42,7 +42,7 @@ class AdminModel extends Model {
 	 *
 	 * @author lhk(2016/01/05)
 	 */
-	public $_validate_login = array (
+	public $validate_login = array (
 			array (
 					'admin_username',
 					'require',
@@ -69,6 +69,8 @@ class AdminModel extends Model {
 	
 	/**
 	 * 检查验证码是否正确
+	 *
+	 * @author lhk(2016/01/05)
 	 */
 	protected function checkVerify($verify) {
 		// 检查验证码是否正确
@@ -103,7 +105,7 @@ class AdminModel extends Model {
 		);
 		$admin_info = $this->field ( $field )->where ( $where )->bind ( $bind )->find ();
 		if ($admin_info) {
-			if($admin_info['admin_open'] != 1) {
+			if ($admin_info ['admin_open'] != 1) {
 				// 不允许登录，返回false
 				$this->error = '该帐号被禁止登录，请联系管理员';
 				return false;
@@ -118,10 +120,10 @@ class AdminModel extends Model {
 					'admin_id' => $admin_info ['admin_id'],
 					'admin_hits' => $admin_info ['admin_hits'] + 1,
 					'admin_logintime' => time (),
-					'admin_ip' => get_client_ip () 
+					'admin_ip' => get_client_ip ( 0, true ) 
 			);
 			$this->save ( $data );
-			return true;
+			return $data ['admin_id'];
 		}
 		// 没有通过验证，返回false
 		$this->error = '用户名或密码错误！';

@@ -37,8 +37,11 @@ class CommonController extends Controller {
 							'admin_id' => $admin_info ['admin_id'],
 							'admin_hits' => $admin_info ['admin_hits'] + 1,
 							'admin_logintime' => time (),
-							'admin_ip' => get_client_ip () 
+							'admin_ip' => get_client_ip ( 0, true ) 
 					);
+					// 记录admin_id
+					$this->admin_id = $admin_info ['admin_id'];
+					$this->addAdminLog("系统管理", "登录系统");
 					$adminModel->save ( $data );
 				} else {
 					// 失败，显示错误信息
@@ -49,9 +52,11 @@ class CommonController extends Controller {
 			if (! session ( '?admin' )) {
 				// 失败，显示错误信息
 				$this->error ( '您还没登录！', U ( 'Login/index' ) );
-			}
+			}	
 		}
-		// $this->redirect('Login/index');
+		
+		// 记录admin_id
+		$this->admin_id = session ( 'admin' )['admin_id'];
 	}
 	
 	/**
