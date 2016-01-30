@@ -23,33 +23,56 @@ class SystemController extends CommonController {
 	 * @author lhk(2016/01/28)
 	 */
 	public function logData() {
+		$conditions = array (
+				'start_date' => I ( 'get.start_date' ),
+				'end_date' => I ( 'get.end_date' ),
+				'keywords' => I ( 'get.keywords' ) 
+		);
 		$adminLogModel = D ( 'AdminLog' );
-		$list = $adminLogModel->logData ();
-		
-		$data = array ();
-		foreach ( $list as $k => $v ) {
-			$data ['data'] [$k] = array (
-					"<input value=\"{$v['admin_log_id']}\" name=\"id\" type=\"checkbox\" />",
-					$v ['admin_log_id'],
-					$v ['admin_realname'],
-					$v ['admin_log_type'],
-					$v ['admin_log_content'],
-					date ( 'Y-m-d H:i:s', $v ['admin_log_time'] ),
-					$v ['admin_log_ip'],
-					"<a title=\"删除\" href=\"javascript:;\" onclick=\"log_del(this,'{$v['admin_log_id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a>" 
-			);
-		}
+		$data = $adminLogModel->logData ( $conditions );
 		
 		$this->ajaxReturn ( $data );
 	}
 	
 	/**
-	 * 我的桌面
+	 * 删除系统日志(伪删除)
 	 *
-	 * @author lhk(2016/01/05)
+	 * @author lhk(2016/01/30)
 	 */
-	public function welcome() {
-		$this->admin_hits = session ( 'admin' ) ['admin_hits'] + 1;
-		$this->display ();
+	public function deleteLog() {
+		if (IS_AJAX) {
+			$id_array = explode ( ',', rtrim ( I ( 'post.ids' ), ',' ) );
+			$adminLogModel = D ( 'AdminLog' );
+			
+			$log_type = "系统管理";
+			$delete_flag = true;
+			$delete_id = '';
+			
+			foreach ( $id_array as $k => $v ) {
+				if ($adminLogModel->deleteLog ( $v ) !== false) {
+					$this->addAdminLog ( $log_type, "删除系统日志成功，ID为：{$v}" );
+				} else {
+					$delete_flag = false;
+					$delete_id .= $v . '，';
+					$this->addAdminLog ( $log_type, "删除系统日志失败，ID为：{$v}" );
+				}
+			}
+			
+			if ($delete_flag === true) {
+				$result = array (
+						'status' => 1,
+						'type' => 'success',
+						'info' => '删除系统日志成功' 
+				);
+			} else {
+				$result = array (
+						'status' => 0,
+						'type' => 'error',
+						'info' => '删除系统日志失败，ID为：' . rtrim ( $delete_id, '，' ) 
+				);
+			}
+			
+			$this->ajaxReturn ( $result );
+		}
 	}
 }

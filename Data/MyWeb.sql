@@ -1,7 +1,7 @@
 /*
 Navicat MariaDB Data Transfer
 
-Source Server         : localhost_3306
+Source Server         : localhost_1117
 Source Server Version : 100107
 Source Host           : localhost:1117
 Source Database       : MyWeb
@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100107
 File Encoding         : 65001
 
-Date: 2016-01-30 11:53:05
+Date: 2016-01-30 17:21:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3900,7 +3900,7 @@ CREATE TABLE `my_admin` (
 -- ----------------------------
 -- Records of my_admin
 -- ----------------------------
-INSERT INTO `my_admin` VALUES ('1', 'lhk', 'ecfd886fa8315a216e4e1b1a5ce0a071', '1037337446@qq.com', '连亨凯', '13527657346', '14', '192.168.15.60', '1454033243', '1453960340', '1');
+INSERT INTO `my_admin` VALUES ('1', 'lhk', 'ecfd886fa8315a216e4e1b1a5ce0a071', '1037337446@qq.com', '连亨凯', '13527657346', '15', '192.168.15.60', '1454126227', '1453960340', '1');
 
 -- ----------------------------
 -- Table structure for my_admin_log
@@ -3915,14 +3915,14 @@ CREATE TABLE `my_admin_log` (
   `admin_log_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '操作ip',
   `admin_log_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '操作状态，0为已删除',
   PRIMARY KEY (`admin_log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of my_admin_log
 -- ----------------------------
-INSERT INTO `my_admin_log` VALUES ('6', '1', '登录', '登录系统', '1453962191', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('7', '1', '登录', '登录系统', '1453962384', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('8', '1', '系统管理', '退出系统', '1453972327', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('6', '1', '登录', '登录系统', '1453962191', '192.168.15.60', '0');
+INSERT INTO `my_admin_log` VALUES ('7', '1', '登录', '登录系统', '1453962384', '192.168.15.60', '0');
+INSERT INTO `my_admin_log` VALUES ('8', '1', '系统管理', '退出系统', '1453972327', '192.168.15.60', '0');
 INSERT INTO `my_admin_log` VALUES ('9', '1', '系统管理', '登录系统', '1453972338', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('10', '1', '系统管理', '退出系统', '1453972360', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('11', '1', '系统管理', '登录系统', '1453972366', '192.168.15.60', '1');
@@ -3935,4 +3935,11 @@ INSERT INTO `my_admin_log` VALUES ('17', '1', '系统管理', '登录系统', '1
 INSERT INTO `my_admin_log` VALUES ('18', '1', '系统管理', '退出系统', '1453973559', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('19', '1', '系统管理', '登录系统', '1453973564', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('20', '1', '系统管理', '登录系统', '1454028819', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('21', '1', '系统管理', '登录系统', '1454033243', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('21', '1', '系统管理', '登录系统', '1454033243', '192.168.15.60', '0');
+INSERT INTO `my_admin_log` VALUES ('22', '1', '系统管理', '登录系统', '1454126228', '192.168.15.60', '0');
+INSERT INTO `my_admin_log` VALUES ('23', '1', '系统管理', '删除系统日志成功，ID为：22', '1454136781', '192.168.15.60', '0');
+INSERT INTO `my_admin_log` VALUES ('24', '1', '系统管理', '删除系统日志成功，ID为：23', '1454137037', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('25', '1', '系统管理', '删除系统日志成功，ID为：6', '1454137046', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('26', '1', '系统管理', '删除系统日志成功，ID为：7', '1454137080', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('27', '1', '系统管理', '删除系统日志成功，ID为：8', '1454137099', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('28', '1', '系统管理', '删除系统日志成功，ID为：21', '1454137314', '192.168.15.60', '1');

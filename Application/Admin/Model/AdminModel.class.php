@@ -93,7 +93,7 @@ class AdminModel extends Model {
 				'admin_username' => ':admin_username',
 				'admin_pwd' => ':admin_pwd' 
 		);
-		$bind = array (
+		$key = array (
 				':admin_username' => array (
 						I ( 'post.admin_username' ),
 						\PDO::PARAM_STR 
@@ -103,7 +103,7 @@ class AdminModel extends Model {
 						\PDO::PARAM_STR 
 				) 
 		);
-		$admin_info = $this->field ( $field )->where ( $where )->bind ( $bind )->find ();
+		$admin_info = $this->field ( $field )->where ( $where )->bind ( $key )->find ();
 		if ($admin_info) {
 			if ($admin_info ['admin_open'] != 1) {
 				// 不允许登录，返回false
