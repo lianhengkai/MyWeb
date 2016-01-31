@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100107
 File Encoding         : 65001
 
-Date: 2016-01-30 17:21:59
+Date: 2016-01-31 15:26:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3894,13 +3894,14 @@ CREATE TABLE `my_admin` (
   `admin_logintime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '最后登录时间',
   `admin_addtime` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `admin_open` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '审核状态',
+  `admin_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '管理员状态，0为已删除',
   PRIMARY KEY (`admin_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of my_admin
 -- ----------------------------
-INSERT INTO `my_admin` VALUES ('1', 'lhk', 'ecfd886fa8315a216e4e1b1a5ce0a071', '1037337446@qq.com', '连亨凯', '13527657346', '15', '192.168.15.60', '1454126227', '1453960340', '1');
+INSERT INTO `my_admin` VALUES ('1', 'lhk', 'ecfd886fa8315a216e4e1b1a5ce0a071', '1037337446@qq.com', '连亨凯', '13527657346', '17', '192.168.15.60', '1454200777', '1453960340', '1', '1');
 
 -- ----------------------------
 -- Table structure for my_admin_log
@@ -3915,7 +3916,7 @@ CREATE TABLE `my_admin_log` (
   `admin_log_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '操作ip',
   `admin_log_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '操作状态，0为已删除',
   PRIMARY KEY (`admin_log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of my_admin_log
@@ -3943,3 +3944,6 @@ INSERT INTO `my_admin_log` VALUES ('25', '1', '系统管理', '删除系统日�
 INSERT INTO `my_admin_log` VALUES ('26', '1', '系统管理', '删除系统日志成功，ID为：7', '1454137080', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('27', '1', '系统管理', '删除系统日志成功，ID为：8', '1454137099', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('28', '1', '系统管理', '删除系统日志成功，ID为：21', '1454137314', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('29', '1', '系统管理', '登录系统', '1454200757', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('30', '1', '系统管理', '退出系统', '1454200764', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('31', '1', '系统管理', '登录系统', '1454200777', '192.168.15.60', '1');
