@@ -27,6 +27,7 @@ class AdminModel extends Model {
 			'admin_logintime',
 			'admin_addtime',
 			'admin_open',
+			'admin_status',
 			'_autoinc' => true 
 	);
 	
@@ -91,7 +92,8 @@ class AdminModel extends Model {
 		$field = "admin_id,admin_username,admin_realname,admin_hits,admin_open,admin_ip,admin_logintime";
 		$where = array (
 				'admin_username' => ':admin_username',
-				'admin_pwd' => ':admin_pwd' 
+				'admin_pwd' => ':admin_pwd',
+				'admin_status' => 1 
 		);
 		$key = array (
 				':admin_username' => array (
@@ -128,5 +130,79 @@ class AdminModel extends Model {
 		// 没有通过验证，返回false
 		$this->error = '用户名或密码错误！';
 		return false;
+	}
+	
+	/**
+	 * 管理员列表数据
+	 *
+	 * @author lhk(2016/01/31)
+	 */
+	public function adminData($conditions) {
+		$field = '*';
+		$where = array (
+				'admin_status' => 1 
+		);
+		$key = array();
+		
+		if ($conditions ['start_date'] != '' && $conditions ['end_date'] != '') {
+			$where ['admin_addtime'] = array (
+					array (
+							'EGT',
+							':start_date'
+					),
+					array (
+							'ELT',
+							':end_date'
+					),
+					'AND'
+			);
+			$key [':start_date'] = array (
+					strtotime ( $conditions ['start_date'] ),
+					\PDO::PARAM_INT
+			);
+			$key [':end_date'] = array (
+					strtotime ( $conditions ['end_date'] ),
+					\PDO::PARAM_INT
+			);
+		} elseif ($conditions ['start_date'] != '' && $conditions ['end_date'] == '') {
+			$where ['admin_addtime'] = array (
+					'EGT',
+					':start_date'
+			);
+			$key [':start_date'] = array (
+					strtotime ( $conditions ['start_date'] ),
+					\PDO::PARAM_INT
+			);
+		} elseif ($conditions ['start_date'] == '' && $conditions ['end_date'] != '') {
+			$where ['admin_addtime'] = array (
+					'ELT',
+					':end_date'
+			);
+			$key [':end_date'] = array (
+					strtotime ( $conditions ['end_date'] ),
+					\PDO::PARAM_INT
+			);
+		}
+		
+		if ($conditions ['keywords'] != '') {
+			$where ['admin_username|admin_realname'] = array (
+					array (
+							'LIKE',
+							':keywords'
+					),
+					array (
+							'LIKE',
+							':keywords'
+					),
+					'_multi' => true
+			);
+			$key [':keywords'] = array (
+					'%' . $conditions ['keywords'] . '%',
+					\PDO::PARAM_STR
+			);
+		}
+		
+		$list = $this->field ( $field )->where ( $where )->bind ( $key )->select ();
+		return $list;
 	}
 }

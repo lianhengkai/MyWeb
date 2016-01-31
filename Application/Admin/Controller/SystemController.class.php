@@ -29,9 +29,25 @@ class SystemController extends CommonController {
 				'keywords' => I ( 'get.keywords' ) 
 		);
 		$adminLogModel = D ( 'AdminLog' );
-		$data = $adminLogModel->logData ( $conditions );
+		$list = $adminLogModel->logData ( $conditions );
 		
-		$this->ajaxReturn ( $data );
+		$data = array ();
+		foreach ( $list as $k => $v ) {
+			$data [$k] = array (
+					'checkbox' => "<input value=\"{$v['admin_log_id']}\" name=\"id\" type=\"checkbox\" />",
+					'admin_log_id' => $v ['admin_log_id'],
+					'admin_realname' => $v ['admin_realname'],
+					'admin_log_type' => $v ['admin_log_type'],
+					'admin_log_content' => $v ['admin_log_content'],
+					'admin_log_time' => date ( 'Y-m-d H:i:s', $v ['admin_log_time'] ),
+					'admin_log_ip' => $v ['admin_log_ip'],
+					'handle' => "<a title=\"删除\" href=\"javascript:;\" onclick=\"delete_one('{$v['admin_log_id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a>" 
+			);
+		}
+		
+		$this->ajaxReturn ( array (
+				'data' => $data 
+		) );
 	}
 	
 	/**

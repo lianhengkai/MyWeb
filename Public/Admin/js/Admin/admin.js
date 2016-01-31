@@ -1,4 +1,4 @@
-var CONTROLLER = '/admin.php/System';
+var CONTROLLER = '/admin.php/Admin';
 var start_date,end_date,keywords,search_str = '';
 
 $(function() {
@@ -10,36 +10,39 @@ $(function() {
 	
 	$('.table-sort').dataTable({
 		"bAutoWidth" : false, // 自动宽度
-		"ajax" : CONTROLLER + '/logData' + search_str,
+		"ajax" : CONTROLLER + '/adminData' + search_str,
 		"columns" : [ {
 			"data" : "checkbox",
 			"title" : "<input type=\"checkbox\" id=\"check_all\" />",
 			"class" : "text-c",
 			"width" : "20px"
 		}, {
-			"data" : "admin_log_id",
+			"data" : "admin_id",
 			"title" : "ID",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_realname",
+			"data" : "admin_username",
 			"title" : "用户名",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_log_type",
-			"title" : "类型",
-			"class" : "text-c",
-			"width" : "100px"
-		}, {
-			"data" : "admin_log_content",
-			"title" : "内容",
-			"class" : "text-l"
-		}, {
-			"data" : "admin_log_time",
-			"title" : "时间",
+			"data" : "admin_realname",
+			"title" : "真实姓名",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_log_ip",
-			"title" : "客户端IP",
+			"data" : "admin_email",
+			"title" : "邮箱",
+			"class" : "text-c"
+		}, {
+			"data" : "admin_tel",
+			"title" : "手机",
+			"class" : "text-c"
+		}, {
+			"data" : "admin_addtime",
+			"title" : "加入时间",
+			"class" : "text-c"
+		}, {
+			"data" : "admin_open",
+			"title" : "是否已启用",
 			"class" : "text-c"
 		}, {
 			"data" : "handle",
@@ -76,7 +79,7 @@ function delete_select() {
 		});
 		
 		$.ajax({
-			url : CONTROLLER + '/deleteLog',
+			url : CONTROLLER + '/deleteAdmin',
 			data : {ids : ids},
 			success : function(data) {
 				if (data.status == 1) {
@@ -96,7 +99,7 @@ function delete_select() {
 function delete_one(ids) {
 	my_confirm('确定要删除该数据吗？', function() {
 		$.ajax({
-			url : CONTROLLER + '/deleteLog',
+			url : CONTROLLER + '/deleteAdmin',
 			data : {ids : ids},
 			success : function(data) {
 				if (data.status == 1) {

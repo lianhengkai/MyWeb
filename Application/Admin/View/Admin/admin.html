@@ -1,9 +1,9 @@
 ﻿<include file="Common/header"/>
 <link href="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/css/H-ui.admin.css" rel="stylesheet" type="text/css"/>
-<title>系统日志 - LHK后台管理系统</title>
+<title>管理员列表 - LHK后台管理系统</title>
 </head>
 <body>
-<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 系统管理 <span class="c-gray en">&gt;</span> 系统日志 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r mr-20" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a></nav>
 <div class="pd-20">
 	<div class="text-c"> 
 		<form action="__ACTION__" method="POST">
@@ -11,7 +11,7 @@
 			<input value="{$Think.post.start_date}" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss', maxDate:'#F{ $dp.$D(\'end_date\')||\'%y-%M-%d\'}'})" id="start_date" name="start_date" class="input-text Wdate" style="width:170px;">
 			-
 			<input value="{$Think.post.end_date}" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss', minDate:'#F{ $dp.$D(\'start_date\')}',maxDate:'%y-%M-%d'})" id="end_date" name="end_date" class="input-text Wdate" style="width:170px;">
-			<input value="{$Think.post.keywords}" type="text" class="input-text" style="width:250px" placeholder="用户名 类型 内容" name="keywords">
+			<input value="{$Think.post.keywords}" type="text" class="input-text" style="width:250px" placeholder="用户名 真实姓名" name="keywords">
 			<button type="submit" class="btn btn-success radius" id="search_button" name="">
 				<i class="Hui-iconfont">&#xe665;</i> 搜索
 			</button>
@@ -21,6 +21,9 @@
 		<span class="l">
 			<a href="javascript:;" onclick="delete_select()" class="btn btn-danger radius">
 				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+			<a href="javascript:;" onclick="admin_add('添加管理员','admin-add.html','800','500')" class="btn btn-primary radius">
+				<i class="Hui-iconfont">&#xe600;</i> 添加管理员
 			</a>
 		</span>
 	</div>
@@ -34,6 +37,6 @@
 <script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/js/H-ui.admin.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/lib/My97DatePicker/WdatePicker.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="__ADMIN__/js/System/log.js"></script>
+<script type="text/javascript" src="__ADMIN__/js/Admin/admin.js"></script>
 </body>
 </html>

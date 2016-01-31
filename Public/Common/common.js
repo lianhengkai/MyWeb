@@ -47,3 +47,21 @@ function my_confirm(confirm, callback1, callback2) {
 		title:'提示'
 	}, callback1, callback2);
 }
+
+/**
+ * iframe层函数
+ * @param confirm 询问信息
+ * @param title 回调函数1
+ * @param url 回调函数2
+ * @author lhk(2016/01/30)
+ */
+function my_iframe(title, url, callback2) {
+	layer.open({
+	    type: 2,
+	    title: title,
+	    shadeClose: true,
+	    shade: 0.8,
+	    area: ['380px', '90%'],
+	    content: url
+	}); 
+}
