@@ -84,7 +84,7 @@ class AdminModel extends Model {
 			array (
 					'admin_username',
 					'2,16',
-					'请填写2到16位任意字符！',
+					'用户名请填写2到16位任意字符！',
 					1,
 					'length' 
 			),
@@ -103,7 +103,7 @@ class AdminModel extends Model {
 			array (
 					'admin_realname',
 					'2,16',
-					'请填写2到16位任意字符！',
+					'真实姓名请填写2到16位任意字符！',
 					1,
 					'length' 
 			),
@@ -115,7 +115,7 @@ class AdminModel extends Model {
 			array (
 					'admin_pwd',
 					'6,20',
-					'请填写6到20位任意字符！',
+					'密码请填写6到20位任意字符！',
 					1,
 					'length' 
 			),
@@ -130,7 +130,29 @@ class AdminModel extends Model {
 					'您两次输入的新密码不一致！',
 					1,
 					'confirm' 
-			) 
+			),
+			array (
+					'admin_sex',
+					'require',
+					'请选择性别！'
+			),
+			array (
+					'admin_tel',
+					'require',
+					'手机不能为空'
+			),
+			array (
+					'admin_tel',
+					'/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}|17[0-9]{9}$/',
+					'请填写手机号码！',
+					1,
+					'regex'
+			),
+			array (
+					'admin_email',
+					'email',
+					'请输入邮箱！'
+			)
 	);
 	
 	/**

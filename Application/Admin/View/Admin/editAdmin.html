@@ -1,0 +1,99 @@
+﻿<include file="Common/header"/>
+<link href="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/css/H-ui.admin.css" rel="stylesheet" type="text/css"/>
+<link href="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/lib/icheck/icheck.css" rel="stylesheet" type="text/css" />
+<title>添加管理员 - LHK后台管理系统</title>
+</head>
+<body>
+<div class="pd-20">
+	<form action="{:U('addAdmin')}" method="post" class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>用户名：</label>
+			<div class="formControls col-5">
+				<input type="text" ajaxurl="{:U('checkAdminUnique')}" class="input-text" value="" placeholder="" id="admin_username" name="admin_username" datatype="*2-16" nullmsg="用户名不能为空">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>真实姓名：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="" placeholder="" id="admin_realname" name="admin_realname" datatype="*2-16" nullmsg="真实姓名不能为空">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>初始密码：</label>
+			<div class="formControls col-5">
+				<input type="password" name="admin_pwd" id="admin_pwd" placeholder="密码" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>确认密码：</label>
+			<div class="formControls col-5">
+				<input type="password" placeholder="确认新密码" autocomplete="off" class="input-text" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="admin_pwd" id="admin_pwd2" name="admin_pwd2">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>性别：</label>
+			<div class="formControls col-5 skin-minimal">
+				<div class="radio-box">
+					<input type="radio" id="sex-1" name="admin_sex" value="男" datatype="*" nullmsg="请选择性别！">
+					<label for="sex-1">男</label>
+				</div>
+				<div class="radio-box">
+					<input type="radio" id="sex-2" name="admin_sex" value="女">
+					<label for="sex-2">女</label>
+				</div>
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>手机：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" value="" placeholder="" id="admin_tel" name="admin_tel"  datatype="m" nullmsg="手机不能为空">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-3"><span class="c-red">*</span>邮箱：</label>
+			<div class="formControls col-5">
+				<input type="text" class="input-text" placeholder="@" name="admin_email" id="admin_email" datatype="e" nullmsg="请输入邮箱！">
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<!-- 
+		<div class="row cl">
+			<label class="form-label col-3">角色：</label>
+			<div class="formControls col-5"> <span class="select-box" style="width:150px;">
+				<select class="select" name="admin-role" size="1">
+					<option value="0">超级管理员</option>
+					<option value="1">总编</option>
+					<option value="2">栏目主辑</option>
+					<option value="3">栏目编辑</option>
+				</select>
+				</span> </div>
+		</div>
+		 -->
+		<div class="row cl">
+			<label class="form-label col-3">备注：</label>
+			<div class="formControls col-5">
+				<textarea name="admin_remark" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)"></textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+			</div>
+			<div class="col-4"> </div>
+		</div>
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</div>
+<include file="Common/footer"/>
+<script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/js/H-ui.admin.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/lib/icheck/jquery.icheck.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/lib/Validform/5.3.2/Validform.min.js"></script> 
+<script type="text/javascript" src="__ADMIN__/js/Admin/addAdmin.js"></script>
+</body>
+</html>

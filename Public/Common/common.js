@@ -82,9 +82,7 @@ function my_iframe(title, url) {
 			length : 100
 		}, settings);
 		maxLength = settings.length;
-		$(this).attr("maxlength", maxLength).bind("keydown", doKeydown).bind(
-				"keypress", doKeypress).bind("beforepaste", doBeforePaste)
-				.bind("paste", doPaste);
+		$(this).attr("maxlength", maxLength).bind("keydown", doKeydown).bind("keypress", doKeypress).bind("beforepaste", doBeforePaste).bind("paste", doPaste);
 
 		function doKeypress() {
 			if (document.selection) {
@@ -103,8 +101,7 @@ function my_iframe(title, url) {
 				setTimeout(function() {
 					if (_obj.value.length > maxLength - 1) {
 						var oTR = window.document.selection.createRange();
-						oTR.moveStart("character", -1
-								* (_obj.value.length - maxLength));
+						oTR.moveStart("character", -1 * (_obj.value.length - maxLength));
 						oTR.text = "";
 					}
 				}, 1);

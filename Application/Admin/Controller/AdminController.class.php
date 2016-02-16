@@ -44,7 +44,7 @@ class AdminController extends CommonController {
 					'admin_tel' => $v ['admin_tel'],
 					'admin_addtime' => date ( 'Y-m-d H:i:s', $v ['admin_addtime'] ),
 					'admin_open' => $v ['admin_open'] == 1 ? '<span class="label label-success radius">已启用</span>' : '<span class="label radius">已停用</span>',
-					'handle' => $handle . "<a title=\"编辑\" href=\"javascript:;\" onclick=\"admin_edit('管理员编辑','admin-add.html','1','800','500')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a><a title=\"删除\" href=\"javascript:;\" onclick=\"delete_one('{$v['admin_id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a>" 
+					'handle' => $handle . "<a title=\"编辑\" href=\"javascript:;\" onclick=\"edit_admin('{$v['admin_id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a><a title=\"删除\" href=\"javascript:;\" onclick=\"delete_one('{$v['admin_id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a>" 
 			);
 		}
 		
@@ -54,7 +54,7 @@ class AdminController extends CommonController {
 	}
 	
 	/**
-	 * 添加管理员页面
+	 * 添加管理员
 	 *
 	 * @author lhk(2016/02/16)
 	 */
@@ -89,6 +89,18 @@ class AdminController extends CommonController {
 			}
 			
 			$this->ajaxReturn ( $data );
+		} else {
+			$this->display ();
+		}
+	}
+	
+	/**
+	 * 编辑管理员
+	 *
+	 * @author lhk(2016/02/16)
+	 */
+	public function editAdmin() {
+		if (IS_AJAX) {
 		} else {
 			$this->display ();
 		}

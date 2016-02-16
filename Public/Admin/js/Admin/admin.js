@@ -6,8 +6,7 @@ $(function() {
 	end_date = $('input[name=end_date]').val();
 	keywords = $('input[name=keywords]').val();
 
-	search_str += '?start_date=' + start_date + '&end_date=' + end_date
-			+ '&keywords=' + keywords;
+	search_str += '?start_date=' + start_date + '&end_date=' + end_date + '&keywords=' + keywords;
 
 	$('.table-sort').dataTable({
 		"bAutoWidth" : false, // 自动宽度
@@ -59,17 +58,14 @@ $(function() {
 		"aoColumnDefs" : [ {
 			"orderable" : false,
 			"aTargets" : [ 0, 7 ]
-		} // 制定列不参与排序
+			} // 制定列不参与排序
 		]
 	});
 
-	$("#check_all").bind(
-			'click',
-			function() {
-				var $box = $('input[name=id]');
-				$('input[type=checkbox][name=id]').prop('checked',
-						$('#check_all').is(':checked'));
-			});
+	$("#check_all").bind('click', function() {
+		var $box = $('input[name=id]');
+		$('input[type=checkbox][name=id]').prop('checked', $('#check_all').is(':checked'));
+	});
 });
 
 /**
@@ -161,4 +157,11 @@ function change_admin_open(admin_id, admin_open) {
 			}
 		}
 	});
+}
+
+/**
+ * 编辑管理员
+ */
+function edit_admin(admin_id) {
+	my_iframe('编辑管理员', CONTROLLER + '/editAdmin/admin_id/' + admin_id);
 }
