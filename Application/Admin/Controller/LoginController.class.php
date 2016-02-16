@@ -26,30 +26,30 @@ class LoginController extends CommonController {
 	public function login() {
 		if (IS_AJAX) {
 			// 改用tp框架的自定义规则验证数据
-	        $adminModel = D('Admin');
-	        if ($adminModel->validate($adminModel->validate_login)->create()) {
-	            // 通过验证 开始执行登录验证
-	            if ($adminid = $adminModel->checkLogin()) {
-	                // 登录成功
-	            	$result = array(
-	            			'status' => 1,
-	            			'type' => 'success',
-	            			'info' => '登录成功'
-	            	);
-	            	// 记录admin_id
-	            	$this->admin_id = $adminid;
-	            	$this->addAdminLog("系统管理", "登录系统");
-	            	$this->ajaxReturn($result);
-	            	exit;
-	            }
-	        }
-	        // 没有通过验证，输出错误提示
-	        $result = array(
-	        		'status' => 0,
-	        		'type' => 'error',
-	        		'info' => $adminModel->getError()
-	        );
-	        $this->ajaxReturn($result);	
+			$adminModel = D ( 'Admin' );
+			if ($adminModel->validate ( $adminModel->validate_login )->create ()) {
+				// 通过验证 开始执行登录验证
+				if ($adminid = $adminModel->checkLogin ()) {
+					// 登录成功
+					$data = array (
+							'status' => 1,
+							'type' => 'success',
+							'info' => '登录成功' 
+					);
+					// 记录admin_id
+					$this->admin_id = $adminid;
+					$this->addAdminLog ( "系统管理", "登录系统" );
+					$this->ajaxReturn ( $data );
+					exit ();
+				}
+			}
+			// 没有通过验证，输出错误提示
+			$data = array (
+					'status' => 0,
+					'type' => 'error',
+					'info' => $adminModel->getError () 
+			);
+			$this->ajaxReturn ( $data );
 		}
 	}
 	
@@ -79,7 +79,7 @@ class LoginController extends CommonController {
 		session ( 'admin', null );
 		// 删除可能存在的cookie
 		cookie ( 'admin_id', null );
-		$this->addAdminLog("系统管理", "退出系统");
+		$this->addAdminLog ( "系统管理", "退出系统" );
 		// 跳转：登录界面
 		$this->success ( '退出成功！', U ( 'Login/index' ) );
 	}

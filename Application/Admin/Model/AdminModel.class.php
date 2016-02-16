@@ -21,7 +21,9 @@ class AdminModel extends Model {
 			'admin_pwd',
 			'admin_email',
 			'admin_realname',
+			'admin_sex',
 			'admin_tel',
+			'admin_remark',
 			'admin_hits',
 			'admin_ip',
 			'admin_logintime',
@@ -65,6 +67,69 @@ class AdminModel extends Model {
 					'验证码错误',
 					1,
 					'callback' 
+			) 
+	);
+	
+	/**
+	 * 添加管理员表添加的验证规则 使用自定义验证规则（动态验证）
+	 *
+	 * @author lhk(2016/02/16)
+	 */
+	public $validate_add = array (
+			array (
+					'admin_username',
+					'require',
+					'用户名不能为空' 
+			),
+			array (
+					'admin_username',
+					'2,16',
+					'请填写2到16位任意字符！',
+					1,
+					'length' 
+			),
+			array (
+					'admin_username',
+					'',
+					'用户名已经存在！',
+					1,
+					'unique' 
+			),
+			array (
+					'admin_realname',
+					'require',
+					'真实姓名不能为空' 
+			),
+			array (
+					'admin_realname',
+					'2,16',
+					'请填写2到16位任意字符！',
+					1,
+					'length' 
+			),
+			array (
+					'admin_pwd',
+					'require',
+					'密码不能为空' 
+			),
+			array (
+					'admin_pwd',
+					'6,20',
+					'请填写6到20位任意字符！',
+					1,
+					'length' 
+			),
+			array (
+					'admin_pwd2',
+					'require',
+					'请再输入一次新密码！' 
+			),
+			array (
+					'admin_pwd2',
+					'admin_pwd',
+					'您两次输入的新密码不一致！',
+					1,
+					'confirm' 
 			) 
 	);
 	
@@ -142,45 +207,45 @@ class AdminModel extends Model {
 		$where = array (
 				'admin_status' => 1 
 		);
-		$key = array();
+		$key = array ();
 		
 		if ($conditions ['start_date'] != '' && $conditions ['end_date'] != '') {
 			$where ['admin_addtime'] = array (
 					array (
 							'EGT',
-							':start_date'
+							':start_date' 
 					),
 					array (
 							'ELT',
-							':end_date'
+							':end_date' 
 					),
-					'AND'
+					'AND' 
 			);
 			$key [':start_date'] = array (
 					strtotime ( $conditions ['start_date'] ),
-					\PDO::PARAM_INT
+					\PDO::PARAM_INT 
 			);
 			$key [':end_date'] = array (
 					strtotime ( $conditions ['end_date'] ),
-					\PDO::PARAM_INT
+					\PDO::PARAM_INT 
 			);
 		} elseif ($conditions ['start_date'] != '' && $conditions ['end_date'] == '') {
 			$where ['admin_addtime'] = array (
 					'EGT',
-					':start_date'
+					':start_date' 
 			);
 			$key [':start_date'] = array (
 					strtotime ( $conditions ['start_date'] ),
-					\PDO::PARAM_INT
+					\PDO::PARAM_INT 
 			);
 		} elseif ($conditions ['start_date'] == '' && $conditions ['end_date'] != '') {
 			$where ['admin_addtime'] = array (
 					'ELT',
-					':end_date'
+					':end_date' 
 			);
 			$key [':end_date'] = array (
 					strtotime ( $conditions ['end_date'] ),
-					\PDO::PARAM_INT
+					\PDO::PARAM_INT 
 			);
 		}
 		
@@ -188,21 +253,63 @@ class AdminModel extends Model {
 			$where ['admin_username|admin_realname'] = array (
 					array (
 							'LIKE',
-							':keywords'
+							':keywords' 
 					),
 					array (
 							'LIKE',
-							':keywords'
+							':keywords' 
 					),
-					'_multi' => true
+					'_multi' => true 
 			);
 			$key [':keywords'] = array (
 					'%' . $conditions ['keywords'] . '%',
-					\PDO::PARAM_STR
+					\PDO::PARAM_STR 
 			);
 		}
 		
 		$list = $this->field ( $field )->where ( $where )->bind ( $key )->select ();
 		return $list;
+	}
+	
+	/**
+	 * 检查用户名唯一性
+	 *
+	 * @author lhk(2016/02/16)
+	 */
+	public function checkAdminUnique($admin_id, $admin_username) {
+		$where = array (
+				'admin_username' => ':admin_username' 
+		);
+		$key = array (
+				':admin_username' => array (
+						$admin_username,
+						\PDO::PARAM_STR 
+				) 
+		);
+		
+		if ($admin_id != 0) {
+			$where ['admin_id'] = array (
+					'NEQ',
+					':admin_id' 
+			);
+			
+			$key [':admin_id'] = array (
+					$admin_id,
+					\PDO::PARAM_INT 
+			);
+		}
+		
+		return ! ( boolean ) $this->where ( $where )->bind ( $key )->select ();
+	}
+	
+	/**
+	 * 钩子函数 _before_insert()
+	 *
+	 * @author lhk(2016/02/16)
+	 */
+	protected function _before_insert(&$data, $options) {
+		// 时间
+		$data ['admin_addtime'] = time ();
+		$data ['admin_pwd'] = my_password ( $data ['admin_pwd'] );
 	}
 }

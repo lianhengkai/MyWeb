@@ -62,6 +62,9 @@ $(function() {
 	});
 });
 
+/**
+ * 删除选中数据
+ */
 function delete_select() {
 	var $checkbox = $('input[type=checkbox][name=id]').filter(':checked');
 	if ($checkbox.filter(':checked').length == 0) {
@@ -93,6 +96,9 @@ function delete_select() {
 	});
 }
 
+/**
+ * 删除单条数据
+ */
 function delete_one(ids) {
 	my_confirm('确定要删除该数据吗？', function() {
 		$.ajax({
