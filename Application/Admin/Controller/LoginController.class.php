@@ -27,6 +27,7 @@ class LoginController extends CommonController {
 		if (IS_AJAX) {
 			// 改用tp框架的自定义规则验证数据
 			$adminModel = D ( 'Admin' );
+			
 			if ($adminModel->validate ( $adminModel->validate_login )->create ()) {
 				// 通过验证 开始执行登录验证
 				if ($adminid = $adminModel->checkLogin ()) {

@@ -95,9 +95,13 @@ function delete_select() {
 						window.location.reload();
 					});
 				} else if (data.info && data.type) {
-					my_msg(data.info, data.type);
+					my_msg(data.info, data.type, function() {
+						window.location.reload();
+					});
 				} else {
-					my_msg("服务器繁忙，请稍后再试～", "error");
+					my_msg("服务器繁忙，请稍后再试～", "error", function() {
+						window.location.reload();
+					});
 				}
 			}
 		});
@@ -120,9 +124,13 @@ function delete_one(ids) {
 						window.location.reload();
 					});
 				} else if (data.info && data.type) {
-					my_msg(data.info, data.type);
+					my_msg(data.info, data.type, function() {
+						window.location.reload();
+					});
 				} else {
-					my_msg("服务器繁忙，请稍后再试～", "error");
+					my_msg("服务器繁忙，请稍后再试～", "error", function() {
+						window.location.reload();
+					});
 				}
 			}
 		});

@@ -5,18 +5,19 @@
 </head>
 <body>
 <div class="pd-20">
-	<form action="{:U('addAdmin')}" method="post" class="form form-horizontal" id="form-admin-add">
+	<form action="{:U('editAdmin')}" method="post" class="form form-horizontal" id="form-admin-add">
+		<input type="hidden" value="{$row.admin_id}" id="admin_id" name="admin_id">
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-5">
-				<input type="text" ajaxurl="{:U('checkAdminUnique')}" class="input-text" value="" placeholder="" id="admin_username" name="admin_username" datatype="*2-16" nullmsg="用户名不能为空">
+				<input type="text" ajaxurl="{:U('checkAdminUnique')}?admin_id={$row.admin_id}" class="input-text" value="{$row.admin_username}" placeholder="" id="admin_username" name="admin_username" datatype="*2-16" nullmsg="用户名不能为空">
 			</div>
 			<div class="col-4"> </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>真实姓名：</label>
 			<div class="formControls col-5">
-				<input type="text" class="input-text" value="" placeholder="" id="admin_realname" name="admin_realname" datatype="*2-16" nullmsg="真实姓名不能为空">
+				<input type="text" class="input-text" value="{$row.admin_realname}" placeholder="" id="admin_realname" name="admin_realname" datatype="*2-16" nullmsg="真实姓名不能为空">
 			</div>
 			<div class="col-4"> </div>
 		</div>
@@ -38,11 +39,11 @@
 			<label class="form-label col-3"><span class="c-red">*</span>性别：</label>
 			<div class="formControls col-5 skin-minimal">
 				<div class="radio-box">
-					<input type="radio" id="sex-1" name="admin_sex" value="男" datatype="*" nullmsg="请选择性别！">
+					<input type="radio" id="sex-1" name="admin_sex" value="男" datatype="*" nullmsg="请选择性别！" <if condition="$row.admin_sex eq '男'">checked</if>>
 					<label for="sex-1">男</label>
 				</div>
 				<div class="radio-box">
-					<input type="radio" id="sex-2" name="admin_sex" value="女">
+					<input type="radio" id="sex-2" name="admin_sex" value="女" <if condition="$row.admin_sex eq '女'">checked</if>>
 					<label for="sex-2">女</label>
 				</div>
 			</div>
@@ -51,14 +52,14 @@
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-5">
-				<input type="text" class="input-text" value="" placeholder="" id="admin_tel" name="admin_tel"  datatype="m" nullmsg="手机不能为空">
+				<input type="text" class="input-text" value="{$row.admin_tel}" placeholder="" id="admin_tel" name="admin_tel"  datatype="m" nullmsg="手机不能为空">
 			</div>
 			<div class="col-4"> </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>邮箱：</label>
 			<div class="formControls col-5">
-				<input type="text" class="input-text" placeholder="@" name="admin_email" id="admin_email" datatype="e" nullmsg="请输入邮箱！">
+				<input type="text" class="input-text" value="{$row.admin_email}" placeholder="@" name="admin_email" id="admin_email" datatype="e" nullmsg="请输入邮箱！">
 			</div>
 			<div class="col-4"> </div>
 		</div>
@@ -78,7 +79,7 @@
 		<div class="row cl">
 			<label class="form-label col-3">备注：</label>
 			<div class="formControls col-5">
-				<textarea name="admin_remark" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)"></textarea>
+				<textarea name="admin_remark" cols="" rows="" class="textarea"  placeholder="说点什么...100个字符以内" dragonfly="true" onKeyUp="textarealength(this,100)">{$row.admin_remark}</textarea>
 				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
 			</div>
 			<div class="col-4"> </div>
@@ -94,6 +95,6 @@
 <script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/js/H-ui.admin.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/lib/icheck/jquery.icheck.min.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/lib/Validform/5.3.2/Validform.min.js"></script> 
-<script type="text/javascript" src="__ADMIN__/js/Admin/addAdmin.js"></script>
+<script type="text/javascript" src="__ADMIN__/js/Admin/editAdmin.js"></script>
 </body>
 </html>

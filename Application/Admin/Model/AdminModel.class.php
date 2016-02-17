@@ -134,25 +134,25 @@ class AdminModel extends Model {
 			array (
 					'admin_sex',
 					'require',
-					'请选择性别！'
+					'请选择性别！' 
 			),
 			array (
 					'admin_tel',
 					'require',
-					'手机不能为空'
+					'手机不能为空' 
 			),
 			array (
 					'admin_tel',
 					'/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}|17[0-9]{9}$/',
 					'请填写手机号码！',
 					1,
-					'regex'
+					'regex' 
 			),
 			array (
 					'admin_email',
 					'email',
-					'请输入邮箱！'
-			)
+					'请输入邮箱！' 
+			) 
 	);
 	
 	/**
@@ -333,5 +333,27 @@ class AdminModel extends Model {
 		// 时间
 		$data ['admin_addtime'] = time ();
 		$data ['admin_pwd'] = my_password ( $data ['admin_pwd'] );
+	}
+	
+	/**
+	 * 删除管理员(伪删除)
+	 *
+	 * @author lhk(2016/02/17)
+	 */
+	public function deleteAdmin($id) {
+		$where = array (
+				'admin_id' => ':admin_id' 
+		);
+		$key = array (
+				':admin_id' => array (
+						$id,
+						\PDO::PARAM_INT 
+				) 
+		);
+		$data = array (
+				'admin_status' => 0 
+		);
+		
+		return $this->where ( $where )->bind ( $key )->save ( $data );
 	}
 }

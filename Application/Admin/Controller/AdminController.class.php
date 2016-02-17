@@ -28,7 +28,9 @@ class AdminController extends CommonController {
 				'end_date' => I ( 'get.end_date' ),
 				'keywords' => I ( 'get.keywords' ) 
 		);
+		
 		$adminModel = D ( 'Admin' );
+		
 		$list = $adminModel->adminData ( $conditions );
 		
 		$data = array ();
@@ -62,6 +64,8 @@ class AdminController extends CommonController {
 		if (IS_AJAX) {
 			$adminModel = D ( 'Admin' );
 			
+			$log_type = "管理员管理";
+			
 			if ($adminModel->validate ( $adminModel->validate_add )->create ()) {
 				
 				if ($adminModel->add () !== false) {
@@ -70,14 +74,14 @@ class AdminController extends CommonController {
 							'type' => 'success',
 							'info' => '添加管理员成功' 
 					);
-					$this->addAdminLog ( "管理员管理", "添加管理员成功，插入ID为：" . $adminModel->getLastInsID () );
+					$this->addAdminLog ( $log_type, "添加管理员成功，插入ID为：" . $adminModel->getLastInsID () );
 				} else {
 					$data = array (
 							'status' => 0,
 							'type' => 'error',
 							'info' => '添加管理员失败' 
 					);
-					$this->addAdminLog ( "管理员管理", "添加管理员失败，原因：插入数据库失败，SQL语句：" . $adminModel->getLastSql () );
+					$this->addAdminLog ( $log_type, "添加管理员失败，原因：插入数据库失败，SQL语句：" . $adminModel->getLastSql () );
 				}
 			} else {
 				// 没有通过验证，输出错误提示
@@ -102,6 +106,13 @@ class AdminController extends CommonController {
 	public function editAdmin() {
 		if (IS_AJAX) {
 		} else {
+			$admin_id = ( int ) I ( 'get.admin_id' );
+			
+			$adminModel = D ( 'Admin' );
+			
+			$field = "admin_id,admin_username,admin_realname,admin_sex,admin_tel,admin_email,admin_remark";
+			$this->row = $adminModel->field ( $field )->find ( $admin_id );
+			
 			$this->display ();
 		}
 	}
@@ -120,20 +131,22 @@ class AdminController extends CommonController {
 			
 			$adminModel = D ( 'Admin' );
 			
+			$log_type = "管理员管理";
+			
 			if ($adminModel->save ( $data ) !== false) {
 				$data = array (
 						'status' => 1,
 						'type' => 'success',
 						'info' => '更改审核状态成功' 
 				);
-				$this->addAdminLog ( "管理员管理", "更改审核状态成功，更改ID为：" . $data ['admin_id'] );
+				$this->addAdminLog ( $log_type, "更改审核状态成功，更改ID为：" . $data ['admin_id'] );
 			} else {
 				$data = array (
 						'status' => 0,
 						'type' => 'error',
 						'info' => '更改审核状态失败' 
 				);
-				$this->addAdminLog ( "管理员管理", "更改审核状态失败，更改ID为：" . $data ['admin_id'] );
+				$this->addAdminLog ( $log_type, "更改审核状态失败，更改ID为：" . $data ['admin_id'] );
 			}
 			
 			$this->ajaxReturn ( $data );
@@ -175,37 +188,44 @@ class AdminController extends CommonController {
 	public function deleteAdmin() {
 		if (IS_AJAX) {
 			$id_array = explode ( ',', rtrim ( I ( 'post.ids' ), ',' ) );
-			$adminLogModel = D ( 'AdminLog' );
+			$adminModel = D ( 'Admin' );
 			
-			$log_type = "系统管理";
+			$log_type = "管理员管理";
 			$delete_flag = true;
 			$delete_id = '';
 			
 			foreach ( $id_array as $k => $v ) {
-				if ($adminLogModel->deleteLog ( $v ) !== false) {
-					$this->addAdminLog ( $log_type, "删除系统日志成功，ID为：{$v}" );
-				} else {
+				if ($v == 1) {
+					// 初始化管理员不允许删除
 					$delete_flag = false;
 					$delete_id .= $v . '，';
-					$this->addAdminLog ( $log_type, "删除系统日志失败，ID为：{$v}" );
+					$this->addAdminLog ( $log_type, "删除管理员失败，ID为：{$v}" );
+				} else {
+					if ($adminModel->deleteAdmin ( $v ) !== false) {
+						$this->addAdminLog ( $log_type, "删除管理员成功，ID为：{$v}" );
+					} else {
+						$delete_flag = false;
+						$delete_id .= $v . '，';
+						$this->addAdminLog ( $log_type, "删除管理员失败，ID为：{$v}" );
+					}
 				}
 			}
 			
 			if ($delete_flag === true) {
-				$result = array (
+				$data = array (
 						'status' => 1,
 						'type' => 'success',
-						'info' => '删除系统日志成功' 
+						'info' => '删除管理员成功' 
 				);
 			} else {
-				$result = array (
+				$data = array (
 						'status' => 0,
 						'type' => 'error',
-						'info' => '删除系统日志失败，ID为：' . rtrim ( $delete_id, '，' ) 
+						'info' => '删除管理员失败，ID为：' . rtrim ( $delete_id, '，' ) 
 				);
 			}
 			
-			$this->ajaxReturn ( $result );
+			$this->ajaxReturn ( $data );
 		}
 	}
 }
