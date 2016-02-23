@@ -83,8 +83,8 @@ class AdminModel extends Model {
 			),
 			array (
 					'admin_username',
-					'2,16',
-					'用户名请填写2到16位任意字符！',
+					'4,20',
+					'用户名请填写4到20位任意字符！',
 					1,
 					'length' 
 			),
@@ -102,8 +102,8 @@ class AdminModel extends Model {
 			),
 			array (
 					'admin_realname',
-					'2,16',
-					'真实姓名请填写2到16位任意字符！',
+					'2,10',
+					'真实姓名请填写2到10位任意字符！',
 					1,
 					'length' 
 			),

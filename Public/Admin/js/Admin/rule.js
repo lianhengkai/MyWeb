@@ -1,52 +1,50 @@
 var CONTROLLER = '/admin.php/Admin';
-var start_date, end_date, keywords, search_str = '';
+var keywords, search_str = '';
 
 $(function() {
-	start_date = $('input[name=start_date]').val();
-	end_date = $('input[name=end_date]').val();
 	keywords = $('input[name=keywords]').val();
 
-	search_str += '?start_date=' + start_date + '&end_date=' + end_date + '&keywords=' + keywords;
+	search_str += '?keywords=' + keywords;
 
 	$('.table-sort').dataTable({
 		"bAutoWidth" : false, // 自动宽度
-		"ajax" : CONTROLLER + '/adminData' + search_str,
+		"ajax" : CONTROLLER + '/ruleData' + search_str,
 		"columns" : [ {
 			"data" : "checkbox",
 			"title" : "<input type=\"checkbox\" id=\"check_all\" />",
 			"class" : "text-c",
 			"width" : "20px"
 		}, {
-			"data" : "admin_id",
+			"data" : "id",
 			"title" : "ID",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_username",
-			"title" : "用户名",
+			"data" : "name",
+			"title" : "规则名",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_realname",
-			"title" : "真实姓名",
+			"data" : "title",
+			"title" : "中文名称",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_sex",
-			"title" : "性别",
+			"data" : "status",
+			"title" : "状态",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_email",
-			"title" : "邮箱",
+			"data" : "icon",
+			"title" : "图标",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_tel",
-			"title" : "手机",
+			"data" : "sort",
+			"title" : "排序",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_addtime",
-			"title" : "加入时间",
+			"data" : "pid",
+			"title" : "父ID",
 			"class" : "text-c"
 		}, {
-			"data" : "admin_open",
-			"title" : "是否已启用",
+			"data" : "addtime",
+			"title" : "创建时间",
 			"class" : "text-c"
 		}, {
 			"data" : "handle",
@@ -57,7 +55,7 @@ $(function() {
 		"bStateSave" : true,// 状态保存
 		"aoColumnDefs" : [ {
 			"orderable" : false,
-			"aTargets" : [ 0, 9 ]
+			"aTargets" : [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 			} // 制定列不参与排序
 		]
 	});

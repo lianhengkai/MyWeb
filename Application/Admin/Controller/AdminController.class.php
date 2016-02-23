@@ -23,36 +23,38 @@ class AdminController extends CommonController {
 	 * @author lhk(2016/01/28)
 	 */
 	public function adminData() {
-		$conditions = array (
-				'start_date' => I ( 'get.start_date' ),
-				'end_date' => I ( 'get.end_date' ),
-				'keywords' => I ( 'get.keywords' ) 
-		);
-		
-		$adminModel = D ( 'Admin' );
-		
-		$list = $adminModel->adminData ( $conditions );
-		
-		$data = array ();
-		foreach ( $list as $k => $v ) {
-			$handle = $v ['admin_open'] == 1 ? "<a style=\"text-decoration:none\" onclick=\"change_admin_open('{$v['admin_id']}', 0)\" href=\"javascript:;\" title=\"停用\"><i class=\"Hui-iconfont\">&#xe631;</i></a>" : "<a style=\"text-decoration:none\" onclick=\"change_admin_open('{$v['admin_id']}', 1)\" href=\"javascript:;\" title=\"启用\"><i class=\"Hui-iconfont\">&#xe615;</i></a>";
-			$data [$k] = array (
-					'checkbox' => "<input value=\"{$v['admin_id']}\" name=\"id\" type=\"checkbox\" />",
-					'admin_id' => $v ['admin_id'],
-					'admin_username' => $v ['admin_username'],
-					'admin_realname' => $v ['admin_realname'],
-					'admin_sex' => $v ['admin_sex'],
-					'admin_email' => $v ['admin_email'],
-					'admin_tel' => $v ['admin_tel'],
-					'admin_addtime' => date ( 'Y-m-d H:i:s', $v ['admin_addtime'] ),
-					'admin_open' => $v ['admin_open'] == 1 ? '<span class="label label-success radius">已启用</span>' : '<span class="label radius">已停用</span>',
-					'handle' => $handle . "<a title=\"编辑\" href=\"javascript:;\" onclick=\"edit_admin('{$v['admin_id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a><a title=\"删除\" href=\"javascript:;\" onclick=\"delete_one('{$v['admin_id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a>" 
+		if (IS_AJAX) {
+			$conditions = array (
+					'start_date' => I ( 'get.start_date' ),
+					'end_date' => I ( 'get.end_date' ),
+					'keywords' => I ( 'get.keywords' ) 
 			);
+			
+			$adminModel = D ( 'Admin' );
+			
+			$list = $adminModel->adminData ( $conditions );
+			
+			$data = array ();
+			foreach ( $list as $k => $v ) {
+				$handle = $v ['admin_open'] == 1 ? "<a style=\"text-decoration:none\" onclick=\"change_admin_open('{$v['admin_id']}', 0)\" href=\"javascript:;\" title=\"停用\"><i class=\"Hui-iconfont\">&#xe631;</i></a>" : "<a style=\"text-decoration:none\" onclick=\"change_admin_open('{$v['admin_id']}', 1)\" href=\"javascript:;\" title=\"启用\"><i class=\"Hui-iconfont\">&#xe615;</i></a>";
+				$data [$k] = array (
+						'checkbox' => "<input value=\"{$v['admin_id']}\" name=\"id\" type=\"checkbox\" />",
+						'admin_id' => $v ['admin_id'],
+						'admin_username' => $v ['admin_username'],
+						'admin_realname' => $v ['admin_realname'],
+						'admin_sex' => $v ['admin_sex'],
+						'admin_email' => $v ['admin_email'],
+						'admin_tel' => $v ['admin_tel'],
+						'admin_addtime' => date ( 'Y-m-d H:i:s', $v ['admin_addtime'] ),
+						'admin_open' => $v ['admin_open'] == 1 ? '<span class="label label-success radius">已启用</span>' : '<span class="label radius">已停用</span>',
+						'handle' => $handle . "<a title=\"编辑\" href=\"javascript:;\" onclick=\"edit_admin('{$v['admin_id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a><a title=\"删除\" href=\"javascript:;\" onclick=\"delete_one('{$v['admin_id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a>" 
+				);
+			}
+			
+			$this->ajaxReturn ( array (
+					'data' => $data 
+			) );
 		}
-		
-		$this->ajaxReturn ( array (
-				'data' => $data 
-		) );
 	}
 	
 	/**
@@ -226,6 +228,95 @@ class AdminController extends CommonController {
 			}
 			
 			$this->ajaxReturn ( $data );
+		}
+	}
+	
+	/**
+	 * 权限管理显示页面
+	 *
+	 * @author lhk(2016/02/23)
+	 */
+	public function rule() {
+		$this->display ();
+	}
+	
+	/**
+	 * 权限管理数据
+	 *
+	 * @author lhk(2016/02/23)
+	 */
+	public function ruleData() {
+		if (IS_AJAX) {
+			$conditions = array (
+					'keywords' => I ( 'get.keywords' ) 
+			);
+			
+			$authRuleModel = D ( 'AuthRule' );
+			
+			$list = $authRuleModel->ruleData ( $conditions );
+			
+			$data = array ();
+			foreach ( $list as $k => $v ) {
+				$data [$k] = array (
+						'checkbox' => "<input value=\"{$v['id']}\" name=\"id\" type=\"checkbox\" />",
+						'id' => $v ['id'],
+						'name' => $v ['name'],
+						'title' => $v ['title'],
+						'status' => $v ['status'] == 1 ? '<span class="label label-success radius">已启用</span>' : '<span class="label radius">已停用</span>',
+						'icon' => '<i class="Hui-iconfont">' . $v ['icon'] . '</i>',
+						'sort' => $v ['sort'],
+						'pid' => $v ['pid'],
+						'addtime' => date ( 'Y-m-d H:i:s', $v ['addtime'] ),
+						'handle' => "<a title=\"编辑\" href=\"javascript:;\" onclick=\"edit_rule('{$v['id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6df;</i></a><a title=\"删除\" href=\"javascript:;\" onclick=\"delete_one('{$v['id']}')\" class=\"ml-5\" style=\"text-decoration:none\"><i class=\"Hui-iconfont\">&#xe6e2;</i></a>" 
+				);
+			}
+			
+			$this->ajaxReturn ( array (
+					'data' => $data 
+			) );
+		}
+	}
+	
+	/**
+	 * 添加规则
+	 *
+	 * @author lhk(2016/02/23)
+	 */
+	public function addRule() {
+		if (IS_AJAX) {
+			$authRuleModel = D ( 'AuthRule' );
+				
+			$log_type = "管理员管理";
+				
+			if ($authRuleModel->validate ( $authRuleModel->validate_add )->create ()) {
+	
+				if ($authRuleModel->add () !== false) {
+					$data = array (
+							'status' => 1,
+							'type' => 'success',
+							'info' => '添加规则成功'
+					);
+					$this->addAdminLog ( $log_type, "添加规则成功，插入ID为：" . $authRuleModel->getLastInsID () );
+				} else {
+					$data = array (
+							'status' => 0,
+							'type' => 'error',
+							'info' => '添加规则失败'
+					);
+					$this->addAdminLog ( $log_type, "添加规则失败，原因：插入数据库失败，SQL语句：" . $authRuleModel->getLastSql () );
+				}
+			} else {
+				// 没有通过验证，输出错误提示
+				$data = array (
+						'status' => 0,
+						'type' => 'error',
+						'info' => $authRuleModel->getError ()
+				);
+			}
+				
+			$this->ajaxReturn ( $data );
+		} else {
+			$this->display ();
 		}
 	}
 }

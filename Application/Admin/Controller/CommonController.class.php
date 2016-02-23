@@ -3,6 +3,7 @@
 namespace Admin\Controller;
 
 use Think\Controller;
+use Think\Auth;
 
 /**
  * 后台管理基础控制器
@@ -41,7 +42,7 @@ class CommonController extends Controller {
 					);
 					// 记录admin_id
 					$this->admin_id = $admin_info ['admin_id'];
-					$this->addAdminLog("系统管理", "登录系统");
+					$this->addAdminLog ( "系统管理", "登录系统" );
 					$adminModel->save ( $data );
 				} else {
 					// 失败，显示错误信息
@@ -52,11 +53,34 @@ class CommonController extends Controller {
 			if (! session ( '?admin' )) {
 				// 失败，显示错误信息
 				$this->error ( '您还没登录！', U ( 'Login/index' ) );
-			}	
+			}
 		}
 		
 		// 记录admin_id
-		$this->admin_id = session ( 'admin' )['admin_id'];
+		$this->admin_id = session ( 'admin' ) ['admin_id'];
+		
+		// 定义不需要auth的操作
+		$not_check = array (
+				'Admin/Index/index',
+				'Admin/Index/welcome',
+				'Admin/Login/index',
+				'Admin/Login/login',
+				'Admin/Login/verify',
+				'Admin/Login/logout' 
+		);
+		
+		$m_c_a = MODULE_NAME . '/' . CONTROLLER_NAME . '/' . ACTION_NAME;
+		if (! in_array ( $m_c_a, $not_check ) && $this->admin_id != 1) {
+			// 声明auth类
+			$this->auth = new Auth ();
+			if (! $this->auth->check ( $m_c_a, $this->admin_id )) {
+				if (IS_AJAX) {
+					$this->ajaxReturn ( array () );
+				} else {
+					$this->error ( '您没有权限！', 0, 0 );
+				}
+			}
+		}
 	}
 	
 	/**

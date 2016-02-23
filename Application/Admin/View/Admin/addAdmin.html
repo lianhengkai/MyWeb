@@ -9,28 +9,28 @@
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>用户名：</label>
 			<div class="formControls col-5">
-				<input type="text" ajaxurl="{:U('checkAdminUnique')}" class="input-text" value="" placeholder="" id="admin_username" name="admin_username" datatype="*2-16" nullmsg="用户名不能为空">
+				<input type="text" ajaxurl="{:U('checkAdminUnique')}" class="input-text" maxlength="20" id="admin_username" name="admin_username" datatype="*4-20" nullmsg="用户名不能为空">
 			</div>
 			<div class="col-4"> </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>真实姓名：</label>
 			<div class="formControls col-5">
-				<input type="text" class="input-text" value="" placeholder="" id="admin_realname" name="admin_realname" datatype="*2-16" nullmsg="真实姓名不能为空">
+				<input type="text" class="input-text" maxlength="10" id="admin_realname" name="admin_realname" datatype="*2-10" nullmsg="真实姓名不能为空">
 			</div>
 			<div class="col-4"> </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>初始密码：</label>
 			<div class="formControls col-5">
-				<input type="password" name="admin_pwd" id="admin_pwd" placeholder="密码" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+				<input type="password" maxlength="20" name="admin_pwd" id="admin_pwd" placeholder="密码" autocomplete="off" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
 			</div>
 			<div class="col-4"> </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>确认密码：</label>
 			<div class="formControls col-5">
-				<input type="password" placeholder="确认新密码" autocomplete="off" class="input-text" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="admin_pwd" id="admin_pwd2" name="admin_pwd2">
+				<input type="password" maxlength="20" placeholder="确认新密码" autocomplete="off" class="input-text" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="admin_pwd" id="admin_pwd2" name="admin_pwd2">
 			</div>
 			<div class="col-4"> </div>
 		</div>
@@ -51,14 +51,14 @@
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>手机：</label>
 			<div class="formControls col-5">
-				<input type="text" class="input-text" value="" placeholder="" id="admin_tel" name="admin_tel"  datatype="m" nullmsg="手机不能为空">
+				<input type="text" class="input-text" maxlength="30" id="admin_tel" name="admin_tel" datatype="m" nullmsg="手机不能为空">
 			</div>
 			<div class="col-4"> </div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>邮箱：</label>
 			<div class="formControls col-5">
-				<input type="text" class="input-text" placeholder="@" name="admin_email" id="admin_email" datatype="e" nullmsg="请输入邮箱！">
+				<input type="text" class="input-text" maxlength="30" placeholder="@" name="admin_email" id="admin_email" datatype="e" nullmsg="请输入邮箱！">
 			</div>
 			<div class="col-4"> </div>
 		</div>

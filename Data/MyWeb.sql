@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100107
 File Encoding         : 65001
 
-Date: 2016-02-16 16:59:20
+Date: 2016-02-23 09:55:41
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3899,17 +3899,19 @@ CREATE TABLE `my_admin` (
   `admin_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '管理员状态，0为已删除',
   PRIMARY KEY (`admin_id`),
   UNIQUE KEY `admin_username` (`admin_username`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of my_admin
 -- ----------------------------
-INSERT INTO `my_admin` VALUES ('1', 'lhk', 'ecfd886fa8315a216e4e1b1a5ce0a071', '1037337446@qq.com', '连亨凯', '男', '13527657346', '', '21', '192.168.15.214', '1455608053', '1453960340', '1', '1');
+INSERT INTO `my_admin` VALUES ('1', 'lhk', 'ecfd886fa8315a216e4e1b1a5ce0a071', '1037337446@qq.com', '连亨凯', '男', '13527657346', '', '23', '192.168.15.60', '1456189351', '1453960340', '1', '1');
 INSERT INTO `my_admin` VALUES ('2', 'root', 'ecfd886fa8315a216e4e1b1a5ce0a071', 'root@qq.com', 'root', '男', 'root', '', '0', '', '0', '1455585180', '1', '1');
+INSERT INTO `my_admin` VALUES ('9', '22', 'c4907bd3d740710fbaa2b6c10a705f0f', '1@qq.com', '22', '女', '13527657346', '', '0', '', '0', '1455614871', '1', '1');
 INSERT INTO `my_admin` VALUES ('5', '111', 'ecfd886fa8315a216e4e1b1a5ce0a071', '11@qq.com', '11', '女', '13527657346', '', '0', '', '0', '1455608089', '1', '1');
 INSERT INTO `my_admin` VALUES ('6', '去weq', '5df0ca6e4898049ba4a3cac9f34b322c', '1@qq.com', '123', '女', '13527657346', '', '0', '', '0', '1455608190', '1', '1');
-INSERT INTO `my_admin` VALUES ('7', 'lhk1', '5df0ca6e4898049ba4a3cac9f34b322c', '1@qq.com', '123', '女', '13527657346', '', '0', '', '0', '1455608349', '0', '1');
-INSERT INTO `my_admin` VALUES ('8', '11', '65e51af2540f8f5cb4eec87a5ee1ed67', '1@qq.com', '111', '女', '13527657346', '', '0', '', '0', '1455608386', '0', '1');
+INSERT INTO `my_admin` VALUES ('7', 'lhk1', '5df0ca6e4898049ba4a3cac9f34b322c', '1@qq.com', '123', '女', '13527657346', '', '0', '', '0', '1455608349', '0', '0');
+INSERT INTO `my_admin` VALUES ('8', '11', '65e51af2540f8f5cb4eec87a5ee1ed67', '1@qq.com', '111', '女', '13527657346', '', '0', '', '0', '1455608386', '0', '0');
+INSERT INTO `my_admin` VALUES ('10', 'lhk12', 'ecfd886fa8315a216e4e1b1a5ce0a071', '11@qq.com', 'lhk', '女', '13527657346', '123123', '0', '', '0', '1455669731', '1', '1');
 
 -- ----------------------------
 -- Table structure for my_admin_log
@@ -3924,7 +3926,7 @@ CREATE TABLE `my_admin_log` (
   `admin_log_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '操作ip',
   `admin_log_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '操作状态，0为已删除',
   PRIMARY KEY (`admin_log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of my_admin_log
@@ -3974,3 +3976,55 @@ INSERT INTO `my_admin_log` VALUES ('47', '1', '管理员管理', '更改审核�
 INSERT INTO `my_admin_log` VALUES ('48', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455612872', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('49', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613121', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('50', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613125', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('51', '1', '系统管理', '登录系统', '1455613261', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('52', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613304', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('53', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613330', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('54', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613333', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('55', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613336', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('56', '1', '管理员管理', '添加管理员成功，插入ID为：9', '1455614871', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('57', '1', '管理员管理', '添加管理员成功，插入ID为：10', '1455669731', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('58', '1', '管理员管理', '删除管理员成功，ID为：8', '1455671179', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('59', '1', '管理员管理', '删除管理员成功，ID为：7', '1455671186', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('60', '1', '管理员管理', '删除管理员失败，ID为：1', '1455671695', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('61', '1', '管理员管理', '删除管理员失败，ID为：1', '1455671700', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('62', '1', '系统管理', '登录系统', '1456189351', '192.168.15.60', '1');
+
+-- ----------------------------
+-- think_auth_rule，规则表，
+-- id:主键，name：规则唯一标识, title：规则中文名称 status 状态：为1正常，为0禁用，condition：规则表达式，为空表示存在就验证，不为空表示按照条件验证
+-- ----------------------------
+ DROP TABLE IF EXISTS `think_auth_rule`;
+CREATE TABLE `think_auth_rule` (  
+    `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,  
+    `name` char(80) NOT NULL DEFAULT '',  
+    `title` char(20) NOT NULL DEFAULT '',  
+    `type` tinyint(1) NOT NULL DEFAULT '1',    
+    `status` tinyint(1) NOT NULL DEFAULT '1',  
+    `condition` char(100) NOT NULL DEFAULT '',  # 规则附件条件,满足附加条件的规则,才认为是有效的规则
+    PRIMARY KEY (`id`),  
+    UNIQUE KEY `name` (`name`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+-- ----------------------------
+-- think_auth_group 用户组表， 
+-- id：主键， title:用户组中文名称， rules：用户组拥有的规则id， 多个规则","隔开，status 状态：为1正常，为0禁用
+-- ----------------------------
+ DROP TABLE IF EXISTS `think_auth_group`;
+CREATE TABLE `think_auth_group` ( 
+    `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT, 
+    `title` char(100) NOT NULL DEFAULT '', 
+    `status` tinyint(1) NOT NULL DEFAULT '1', 
+    `rules` char(80) NOT NULL DEFAULT '', 
+    PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+-- ----------------------------
+-- think_auth_group_access 用户组明细表
+-- uid:用户id，group_id：用户组id
+-- ----------------------------
+DROP TABLE IF EXISTS `think_auth_group_access`;
+CREATE TABLE `think_auth_group_access` (  
+    `uid` mediumint(8) unsigned NOT NULL,  
+    `group_id` mediumint(8) unsigned NOT NULL, 
+    UNIQUE KEY `uid_group_id` (`uid`,`group_id`),  
+    KEY `uid` (`uid`), 
+    KEY `group_id` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
