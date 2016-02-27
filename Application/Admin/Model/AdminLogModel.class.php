@@ -57,9 +57,9 @@ class AdminLogModel extends Model {
 	public function logData($conditions) {
 		$field = "l.admin_log_id,a.admin_realname,l.admin_log_type,l.admin_log_content,l.admin_log_time,l.admin_log_ip";
 		$where = array (
-				'admin_log_status' => 1
+				'admin_log_status' => 1 
 		);
-		$key = array();
+		$key = array ();
 		
 		if ($conditions ['start_date'] != '' && $conditions ['end_date'] != '') {
 			$where ['admin_log_time'] = array (

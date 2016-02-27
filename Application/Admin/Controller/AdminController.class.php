@@ -285,23 +285,23 @@ class AdminController extends CommonController {
 	public function addRule() {
 		if (IS_AJAX) {
 			$authRuleModel = D ( 'AuthRule' );
-				
+			
 			$log_type = "管理员管理";
-				
+			
 			if ($authRuleModel->validate ( $authRuleModel->validate_add )->create ()) {
-	
+				
 				if ($authRuleModel->add () !== false) {
 					$data = array (
 							'status' => 1,
 							'type' => 'success',
-							'info' => '添加规则成功'
+							'info' => '添加规则成功' 
 					);
 					$this->addAdminLog ( $log_type, "添加规则成功，插入ID为：" . $authRuleModel->getLastInsID () );
 				} else {
 					$data = array (
 							'status' => 0,
 							'type' => 'error',
-							'info' => '添加规则失败'
+							'info' => '添加规则失败' 
 					);
 					$this->addAdminLog ( $log_type, "添加规则失败，原因：插入数据库失败，SQL语句：" . $authRuleModel->getLastSql () );
 				}
@@ -310,10 +310,10 @@ class AdminController extends CommonController {
 				$data = array (
 						'status' => 0,
 						'type' => 'error',
-						'info' => $authRuleModel->getError ()
+						'info' => $authRuleModel->getError () 
 				);
 			}
-				
+			
 			$this->ajaxReturn ( $data );
 		} else {
 			$this->display ();

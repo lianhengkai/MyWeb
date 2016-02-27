@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100107
 File Encoding         : 65001
 
-Date: 2016-02-23 09:55:41
+Date: 2016-02-23 17:14:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3904,7 +3904,7 @@ CREATE TABLE `my_admin` (
 -- ----------------------------
 -- Records of my_admin
 -- ----------------------------
-INSERT INTO `my_admin` VALUES ('1', 'lhk', 'ecfd886fa8315a216e4e1b1a5ce0a071', '1037337446@qq.com', '连亨凯', '男', '13527657346', '', '23', '192.168.15.60', '1456189351', '1453960340', '1', '1');
+INSERT INTO `my_admin` VALUES ('1', 'lhk', 'ecfd886fa8315a216e4e1b1a5ce0a071', '1037337446@qq.com', '连亨凯', '男', '13527657346', '', '27', '192.168.15.60', '1456212596', '1453960340', '1', '1');
 INSERT INTO `my_admin` VALUES ('2', 'root', 'ecfd886fa8315a216e4e1b1a5ce0a071', 'root@qq.com', 'root', '男', 'root', '', '0', '', '0', '1455585180', '1', '1');
 INSERT INTO `my_admin` VALUES ('9', '22', 'c4907bd3d740710fbaa2b6c10a705f0f', '1@qq.com', '22', '女', '13527657346', '', '0', '', '0', '1455614871', '1', '1');
 INSERT INTO `my_admin` VALUES ('5', '111', 'ecfd886fa8315a216e4e1b1a5ce0a071', '11@qq.com', '11', '女', '13527657346', '', '0', '', '0', '1455608089', '1', '1');
@@ -3926,7 +3926,7 @@ CREATE TABLE `my_admin_log` (
   `admin_log_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '操作ip',
   `admin_log_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '操作状态，0为已删除',
   PRIMARY KEY (`admin_log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of my_admin_log
@@ -3988,43 +3988,70 @@ INSERT INTO `my_admin_log` VALUES ('59', '1', '管理员管理', '删除管理�
 INSERT INTO `my_admin_log` VALUES ('60', '1', '管理员管理', '删除管理员失败，ID为：1', '1455671695', '192.168.15.214', '1');
 INSERT INTO `my_admin_log` VALUES ('61', '1', '管理员管理', '删除管理员失败，ID为：1', '1455671700', '192.168.15.214', '1');
 INSERT INTO `my_admin_log` VALUES ('62', '1', '系统管理', '登录系统', '1456189351', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('63', '1', '系统管理', '退出系统', '1456195830', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('64', '1', '系统管理', '登录系统', '1456195891', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('65', '1', '系统管理', '登录系统', '1456195933', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('66', '1', '系统管理', '登录系统', '1456207390', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('67', '0', '系统管理', '退出系统', '1456212580', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('68', '1', '系统管理', '登录系统', '1456212596', '192.168.15.60', '1');
 
 -- ----------------------------
--- think_auth_rule，规则表，
--- id:主键，name：规则唯一标识, title：规则中文名称 status 状态：为1正常，为0禁用，condition：规则表达式，为空表示存在就验证，不为空表示按照条件验证
+-- Table structure for my_auth_group
 -- ----------------------------
- DROP TABLE IF EXISTS `think_auth_rule`;
-CREATE TABLE `think_auth_rule` (  
-    `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,  
-    `name` char(80) NOT NULL DEFAULT '',  
-    `title` char(20) NOT NULL DEFAULT '',  
-    `type` tinyint(1) NOT NULL DEFAULT '1',    
-    `status` tinyint(1) NOT NULL DEFAULT '1',  
-    `condition` char(100) NOT NULL DEFAULT '',  # 规则附件条件,满足附加条件的规则,才认为是有效的规则
-    PRIMARY KEY (`id`),  
-    UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `my_auth_group`;
+CREATE TABLE `my_auth_group` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `title` char(100) NOT NULL DEFAULT '' COMMENT '用户组中文名称',
+  `rules` varchar(255) NOT NULL DEFAULT '' COMMENT '用户组拥有的规则id， 多个规则","隔开',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：为1正常，为0禁用',
+  `remark` varchar(255) NOT NULL DEFAULT '',
+  `addtime` int(10) unsigned NOT NULL DEFAULT '1454137314' COMMENT '添加时间',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户组表';
+
 -- ----------------------------
--- think_auth_group 用户组表， 
--- id：主键， title:用户组中文名称， rules：用户组拥有的规则id， 多个规则","隔开，status 状态：为1正常，为0禁用
+-- Records of my_auth_group
 -- ----------------------------
- DROP TABLE IF EXISTS `think_auth_group`;
-CREATE TABLE `think_auth_group` ( 
-    `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT, 
-    `title` char(100) NOT NULL DEFAULT '', 
-    `status` tinyint(1) NOT NULL DEFAULT '1', 
-    `rules` char(80) NOT NULL DEFAULT '', 
-    PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+INSERT INTO `my_auth_group` VALUES ('1', '超级管理员', '1', '1', '', '0');
+
 -- ----------------------------
--- think_auth_group_access 用户组明细表
--- uid:用户id，group_id：用户组id
+-- Table structure for my_auth_group_access
 -- ----------------------------
-DROP TABLE IF EXISTS `think_auth_group_access`;
-CREATE TABLE `think_auth_group_access` (  
-    `uid` mediumint(8) unsigned NOT NULL,  
-    `group_id` mediumint(8) unsigned NOT NULL, 
-    UNIQUE KEY `uid_group_id` (`uid`,`group_id`),  
-    KEY `uid` (`uid`), 
-    KEY `group_id` (`group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+DROP TABLE IF EXISTS `my_auth_group_access`;
+CREATE TABLE `my_auth_group_access` (
+  `uid` mediumint(8) unsigned NOT NULL COMMENT '用户id',
+  `group_id` mediumint(8) unsigned NOT NULL COMMENT '用户组id',
+  UNIQUE KEY `uid_group_id` (`uid`,`group_id`),
+  KEY `uid` (`uid`),
+  KEY `group_id` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户组明细表';
+
+-- ----------------------------
+-- Records of my_auth_group_access
+-- ----------------------------
+INSERT INTO `my_auth_group_access` VALUES ('1', '1');
+
+-- ----------------------------
+-- Table structure for my_auth_rule
+-- ----------------------------
+DROP TABLE IF EXISTS `my_auth_rule`;
+CREATE TABLE `my_auth_rule` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` char(80) NOT NULL DEFAULT '' COMMENT '规则唯一标识',
+  `title` char(20) NOT NULL DEFAULT '' COMMENT '规则中文名称',
+  `type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '如果type为1， condition字段就可以定义规则表达式',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：为1正常，为0禁用',
+  `condition` char(100) NOT NULL DEFAULT '' COMMENT '规则表达式，为空表示存在就验证，不为空表示按照条件验证',
+  `pid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '父id',
+  `sort` int(10) unsigned NOT NULL DEFAULT '0',
+  `module` enum('Admin') NOT NULL DEFAULT 'Admin',
+  `icon` varchar(255) NOT NULL DEFAULT '' COMMENT 'icon图标样式，pid为0时有用',
+  `addtime` int(10) unsigned NOT NULL DEFAULT '1454137314' COMMENT '添加时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='规则表';
+
+-- ----------------------------
+-- Records of my_auth_rule
+-- ----------------------------
+INSERT INTO `my_auth_rule` VALUES ('1', 'Admin/System/log', '系统日志', '1', '1', '', '0', '0', 'Admin', '&#xe62e;', '1454137314');
