@@ -77,20 +77,20 @@ class SystemController extends CommonController {
 			}
 			
 			if ($delete_flag === true) {
-				$data = array (
+				$result = array (
 						'status' => 1,
 						'type' => 'success',
 						'info' => '删除系统日志成功' 
 				);
 			} else {
-				$data = array (
+				$result = array (
 						'status' => 0,
 						'type' => 'error',
 						'info' => '删除系统日志失败，ID为：' . rtrim ( $delete_id, '，' ) 
 				);
 			}
 			
-			$this->ajaxReturn ( $data );
+			$this->ajaxReturn ( $result );
 		}
 	}
 }

@@ -32,7 +32,7 @@ class LoginController extends CommonController {
 				// 通过验证 开始执行登录验证
 				if ($adminid = $adminModel->checkLogin ()) {
 					// 登录成功
-					$data = array (
+					$result = array (
 							'status' => 1,
 							'type' => 'success',
 							'info' => '登录成功' 
@@ -40,17 +40,17 @@ class LoginController extends CommonController {
 					// 记录admin_id
 					$this->admin_id = $adminid;
 					$this->addAdminLog ( "系统管理", "登录系统" );
-					$this->ajaxReturn ( $data );
+					$this->ajaxReturn ( $result );
 					exit ();
 				}
 			}
 			// 没有通过验证，输出错误提示
-			$data = array (
+			$result = array (
 					'status' => 0,
 					'type' => 'error',
 					'info' => $adminModel->getError () 
 			);
-			$this->ajaxReturn ( $data );
+			$this->ajaxReturn ( $result );
 		}
 	}
 	

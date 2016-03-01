@@ -71,14 +71,14 @@ class AdminController extends CommonController {
 			if ($adminModel->validate ( $adminModel->validate_add )->create ()) {
 				
 				if ($adminModel->add () !== false) {
-					$data = array (
+					$result = array (
 							'status' => 1,
 							'type' => 'success',
 							'info' => '添加管理员成功' 
 					);
-					$this->addAdminLog ( $log_type, "添加管理员成功，插入ID为：" . $adminModel->getLastInsID () );
+					$this->addAdminLog ( $log_type, "添加管理员成功，ID为：" . $adminModel->getLastInsID () );
 				} else {
-					$data = array (
+					$result = array (
 							'status' => 0,
 							'type' => 'error',
 							'info' => '添加管理员失败' 
@@ -87,14 +87,13 @@ class AdminController extends CommonController {
 				}
 			} else {
 				// 没有通过验证，输出错误提示
-				$data = array (
+				$result = array (
 						'status' => 0,
 						'type' => 'error',
 						'info' => $adminModel->getError () 
 				);
 			}
-			
-			$this->ajaxReturn ( $data );
+			$this->ajaxReturn ( $result );
 		} else {
 			$this->display ();
 		}
@@ -107,6 +106,37 @@ class AdminController extends CommonController {
 	 */
 	public function editAdmin() {
 		if (IS_AJAX) {
+			$adminModel = D ( 'Admin' );
+			
+			$log_type = "管理员管理";
+			
+			if ($data = $adminModel->validate ( $adminModel->validate_edit )->create ()) {
+				
+				if ($adminModel->save () !== false) {
+					$result = array (
+							'status' => 1,
+							'type' => 'success',
+							'info' => '编辑管理员成功' 
+					);
+					$this->addAdminLog ( $log_type, "编辑管理员成功，ID为：" . $data ['admin_id'] );
+				} else {
+					$result = array (
+							'status' => 0,
+							'type' => 'error',
+							'info' => '编辑管理员失败' 
+					);
+					$this->addAdminLog ( $log_type, "编辑管理员失败，原因：插入数据库失败，SQL语句：" . $adminModel->getLastSql () );
+				}
+			} else {
+				// 没有通过验证，输出错误提示
+				$result = array (
+						'status' => 0,
+						'type' => 'error',
+						'info' => $adminModel->getError () 
+				);
+			}
+			
+			$this->ajaxReturn ( $result );
 		} else {
 			$admin_id = ( int ) I ( 'get.admin_id' );
 			
@@ -136,22 +166,22 @@ class AdminController extends CommonController {
 			$log_type = "管理员管理";
 			
 			if ($adminModel->save ( $data ) !== false) {
-				$data = array (
+				$result = array (
 						'status' => 1,
 						'type' => 'success',
 						'info' => '更改审核状态成功' 
 				);
-				$this->addAdminLog ( $log_type, "更改审核状态成功，更改ID为：" . $data ['admin_id'] );
+				$this->addAdminLog ( $log_type, "更改审核状态成功，ID为：" . $data ['admin_id'] );
 			} else {
-				$data = array (
+				$result = array (
 						'status' => 0,
 						'type' => 'error',
 						'info' => '更改审核状态失败' 
 				);
-				$this->addAdminLog ( $log_type, "更改审核状态失败，更改ID为：" . $data ['admin_id'] );
+				$this->addAdminLog ( $log_type, "更改审核状态失败，原因：插入数据库失败，SQL语句：" . $adminModel->getLastSql () );
 			}
 			
-			$this->ajaxReturn ( $data );
+			$this->ajaxReturn ( $result );
 		}
 	}
 	
@@ -168,17 +198,17 @@ class AdminController extends CommonController {
 			$adminModel = D ( 'Admin' );
 			
 			if ($adminModel->checkAdminUnique ( $admin_id, $admin_username )) {
-				$data = array (
+				$result = array (
 						'info' => '',
 						'status' => 'y' 
 				);
 			} else {
-				$data = array (
+				$result = array (
 						'info' => '该用户名已经存在！' 
 				);
 			}
 			
-			$this->ajaxReturn ( $data );
+			$this->ajaxReturn ( $result );
 		}
 	}
 	
@@ -214,20 +244,20 @@ class AdminController extends CommonController {
 			}
 			
 			if ($delete_flag === true) {
-				$data = array (
+				$result = array (
 						'status' => 1,
 						'type' => 'success',
 						'info' => '删除管理员成功' 
 				);
 			} else {
-				$data = array (
+				$result = array (
 						'status' => 0,
 						'type' => 'error',
 						'info' => '删除管理员失败，ID为：' . rtrim ( $delete_id, '，' ) 
 				);
 			}
 			
-			$this->ajaxReturn ( $data );
+			$this->ajaxReturn ( $result );
 		}
 	}
 	
@@ -291,14 +321,14 @@ class AdminController extends CommonController {
 			if ($authRuleModel->validate ( $authRuleModel->validate_add )->create ()) {
 				
 				if ($authRuleModel->add () !== false) {
-					$data = array (
+					$result = array (
 							'status' => 1,
 							'type' => 'success',
 							'info' => '添加规则成功' 
 					);
 					$this->addAdminLog ( $log_type, "添加规则成功，插入ID为：" . $authRuleModel->getLastInsID () );
 				} else {
-					$data = array (
+					$result = array (
 							'status' => 0,
 							'type' => 'error',
 							'info' => '添加规则失败' 
@@ -307,14 +337,14 @@ class AdminController extends CommonController {
 				}
 			} else {
 				// 没有通过验证，输出错误提示
-				$data = array (
+				$result = array (
 						'status' => 0,
 						'type' => 'error',
 						'info' => $authRuleModel->getError () 
 				);
 			}
 			
-			$this->ajaxReturn ( $data );
+			$this->ajaxReturn ( $result );
 		} else {
 			$this->display ();
 		}

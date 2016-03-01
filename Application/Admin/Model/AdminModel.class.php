@@ -156,6 +156,81 @@ class AdminModel extends Model {
 	);
 	
 	/**
+	 * 添加管理员表添加的验证规则 使用自定义验证规则（动态验证）
+	 *
+	 * @author lhk(2016/03/01)
+	 */
+	public $validate_edit = array (
+			array (
+					'admin_username',
+					'require',
+					'用户名不能为空' 
+			),
+			array (
+					'admin_username',
+					'4,20',
+					'用户名请填写4到20位任意字符！',
+					1,
+					'length' 
+			),
+			array (
+					'admin_username',
+					'',
+					'用户名已经存在！',
+					1,
+					'unique' 
+			),
+			array (
+					'admin_realname',
+					'require',
+					'真实姓名不能为空' 
+			),
+			array (
+					'admin_realname',
+					'2,10',
+					'真实姓名请填写2到10位任意字符！',
+					1,
+					'length' 
+			),
+			array (
+					'admin_pwd',
+					'6,20',
+					'密码请填写6到20位任意字符！',
+					2,
+					'length' 
+			),
+			array (
+					'admin_pwd2',
+					'admin_pwd',
+					'您两次输入的新密码不一致！',
+					1,
+					'confirm' 
+			),
+			array (
+					'admin_sex',
+					'require',
+					'请选择性别！' 
+			),
+			array (
+					'admin_tel',
+					'require',
+					'手机不能为空' 
+			),
+			array (
+					'admin_tel',
+					'/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}|17[0-9]{9}$/',
+					'请填写手机号码！',
+					1,
+					'regex' 
+			),
+			array (
+					'admin_email',
+					'email',
+					'请输入邮箱！' 
+			) 
+	);
+	
+	/**
 	 * 检查验证码是否正确
 	 *
 	 * @author lhk(2016/01/05)
@@ -332,6 +407,15 @@ class AdminModel extends Model {
 	protected function _before_insert(&$data, $options) {
 		// 时间
 		$data ['admin_addtime'] = time ();
+		$data ['admin_pwd'] = my_password ( $data ['admin_pwd'] );
+	}
+	
+	/**
+	 * 钩子函数 _before_update()
+	 *
+	 * @author lhk(2016/03/01)
+	 */
+	protected function _before_update(&$data, $options) {
 		$data ['admin_pwd'] = my_password ( $data ['admin_pwd'] );
 	}
 	

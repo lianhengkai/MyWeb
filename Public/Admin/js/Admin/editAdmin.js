@@ -13,8 +13,9 @@ $(function() {
 		increaseArea : '20%'
 	});
 
-	$("#form-admin-add").Validform({
+	$("#form-admin-edit").Validform({
 		ajaxPost : true,
+		dragonfly: true,
 		tiptype : 2,
 		callback : function(data) {
 			if (data.status == 1) {
