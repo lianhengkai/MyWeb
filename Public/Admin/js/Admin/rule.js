@@ -83,7 +83,7 @@ function delete_select() {
 		});
 
 		$.ajax({
-			url : CONTROLLER + '/deleteAdmin',
+			url : CONTROLLER + '/deleteRule',
 			data : {
 				ids : ids
 			},
@@ -112,7 +112,7 @@ function delete_select() {
 function delete_one(ids) {
 	my_confirm('确定要删除该数据吗？', function() {
 		$.ajax({
-			url : CONTROLLER + '/deleteAdmin',
+			url : CONTROLLER + '/deleteRule',
 			data : {
 				ids : ids
 			},
@@ -136,38 +136,8 @@ function delete_one(ids) {
 }
 
 /**
- * 改变管理员启用状态
- */
-function change_admin_open(admin_id, admin_open) {
-	$.ajax({
-		type : 'post',
-		url : CONTROLLER + '/changeAdminOpen',
-		data : {
-			admin_id : admin_id,
-			admin_open : admin_open
-		},
-		dataType : 'json',
-		success : function(data) {
-			if (data.status == 1) {
-				my_msg(data.info, data.type, function() {
-					window.location.reload();
-				});
-			} else if (data.info && data.type) {
-				my_msg(data.info, data.type, function() {
-					window.location.reload();
-				});
-			} else {
-				my_msg("服务器繁忙，请稍后再试～", "error", function() {
-					window.location.reload();
-				});
-			}
-		}
-	});
-}
-
-/**
  * 编辑管理员
  */
-function edit_admin(admin_id) {
-	my_iframe('编辑管理员', CONTROLLER + '/editAdmin/admin_id/' + admin_id);
+function edit_rule(id) {
+	my_iframe('编辑规则', CONTROLLER + '/editRule/id/' + id);
 }

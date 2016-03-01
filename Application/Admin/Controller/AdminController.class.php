@@ -102,7 +102,7 @@ class AdminController extends CommonController {
 	/**
 	 * 编辑管理员
 	 *
-	 * @author lhk(2016/02/16)
+	 * @author lhk(2016/03/01)
 	 */
 	public function editAdmin() {
 		if (IS_AJAX) {
@@ -310,7 +310,7 @@ class AdminController extends CommonController {
 	/**
 	 * 添加规则
 	 *
-	 * @author lhk(2016/02/23)
+	 * @author lhk(2016/03/01)
 	 */
 	public function addRule() {
 		if (IS_AJAX) {
@@ -347,6 +347,64 @@ class AdminController extends CommonController {
 			$this->ajaxReturn ( $result );
 		} else {
 			$this->display ();
+		}
+	}
+	
+	/**
+	 * 删除规则(真删除)
+	 *
+	 * @author lhk(2016/03/01)
+	 */
+	public function deleteRule() {
+		if (IS_AJAX) {
+			$id_array = explode ( ',', rtrim ( I ( 'post.ids' ), ',' ) );
+			$authRuleModel = D ( 'AuthRule' );
+			
+			$log_type = "管理员管理";
+			$delete_flag = true;
+			$delete_id = '';
+			
+			$authRuleModel->startTrans ();
+			
+			foreach ( $id_array as $k => $v ) {
+				// 检查是否有子级存在
+				if ($authRuleModel->hasSon ( $v )) {
+					// 存在则不允许删除
+					$authRuleModel->rollback ();
+					$result = array (
+							'status' => 0,
+							'type' => 'error',
+							'info' => '删除规则失败，原因：该规则存在子规则不允许删除，ID为：' . $v 
+					);
+					$this->ajaxReturn ( $result );
+				}
+				
+				if ($authRuleModel->deleteRule ( $v ) !== false) {
+					$this->addAdminLog ( $log_type, "删除规则成功，ID为：{$v}" );
+				} else {
+					$delete_flag = false;
+					$delete_id .= $v . '，';
+					$this->addAdminLog ( $log_type, "删除规则失败，ID为：{$v}" );
+				}
+			}
+			
+			if ($delete_flag === true) {
+				$authRuleModel->commit ();
+				$result = array (
+						'status' => 1,
+						'type' => 'success',
+						'info' => '删除规则成功' 
+				);
+			} else {
+				$authRuleModel->rollback ();
+				$result = array (
+						'status' => 0,
+						'type' => 'error',
+						'info' => '删除规则失败，ID为：' . rtrim ( $delete_id, '，' ) 
+				);
+			}
+			
+			$this->ajaxReturn ( $result );
 		}
 	}
 }

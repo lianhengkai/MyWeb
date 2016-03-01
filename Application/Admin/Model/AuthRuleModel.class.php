@@ -218,4 +218,36 @@ class AuthRuleModel extends Model {
 		// 返回结果
 		return $lists;
 	}
+	
+	/**
+	 * 检查指定ID下是否有子分类
+	 *
+	 * @author (2016/03/01)
+	 */
+	public function hasSon($id) {
+		$res = $this->where ( array (
+				'pid' => $id 
+		) )->find ();
+		
+		return ( boolean ) $res;
+	}
+	
+	/**
+	 * 删除规则(真删除)
+	 *
+	 * @author lhk(2016/03/01)
+	 */
+	public function deleteRule($id) {
+		$where = array (
+				'id' => ':id' 
+		);
+		$key = array (
+				':id' => array (
+						$id,
+						\PDO::PARAM_INT 
+				) 
+		);
+		
+		return $this->where ( $where )->bind ( $key )->delete ();
+	}
 }
