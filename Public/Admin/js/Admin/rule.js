@@ -1,14 +1,9 @@
 var CONTROLLER = '/admin.php/Admin';
-var keywords, search_str = '';
 
 $(function() {
-	keywords = $('input[name=keywords]').val();
-
-	search_str += '?keywords=' + keywords;
-
 	$('.table-sort').dataTable({
 		"bAutoWidth" : false, // 自动宽度
-		"ajax" : CONTROLLER + '/ruleData' + search_str,
+		"ajax" : CONTROLLER + '/ruleData',
 		"columns" : [ {
 			"data" : "checkbox",
 			"title" : "<input type=\"checkbox\" id=\"check_all\" />",
@@ -21,11 +16,11 @@ $(function() {
 		}, {
 			"data" : "name",
 			"title" : "规则名",
-			"class" : "text-c"
+			"class" : "text-l"
 		}, {
 			"data" : "title",
 			"title" : "中文名称",
-			"class" : "text-c"
+			"class" : "text-l"
 		}, {
 			"data" : "status",
 			"title" : "状态",
@@ -51,8 +46,7 @@ $(function() {
 			"title" : "操作",
 			"class" : "text-c"
 		} ],
-		"aaSorting" : [ [ 1, "desc" ] ],// 默认第几个排序
-		"bStateSave" : true,// 状态保存
+		"bStateSave" : false,// 状态保存
 		"aoColumnDefs" : [ {
 			"orderable" : false,
 			"aTargets" : [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
@@ -136,7 +130,7 @@ function delete_one(ids) {
 }
 
 /**
- * 编辑管理员
+ * 编辑规则
  */
 function edit_rule(id) {
 	my_iframe('编辑规则', CONTROLLER + '/editRule/id/' + id);

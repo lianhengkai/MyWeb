@@ -23,11 +23,11 @@ $(function() {
 		}, {
 			"data" : "admin_username",
 			"title" : "用户名",
-			"class" : "text-c"
+			"class" : "text-l"
 		}, {
 			"data" : "admin_realname",
 			"title" : "真实姓名",
-			"class" : "text-c"
+			"class" : "text-l"
 		}, {
 			"data" : "admin_sex",
 			"title" : "性别",
@@ -35,7 +35,7 @@ $(function() {
 		}, {
 			"data" : "admin_email",
 			"title" : "邮箱",
-			"class" : "text-c"
+			"class" : "text-l"
 		}, {
 			"data" : "admin_tel",
 			"title" : "手机",
