@@ -290,7 +290,7 @@ class AdminController extends CommonController {
 				$data [$k] = array (
 						'checkbox' => "<input value=\"{$v['id']}\" name=\"id\" type=\"checkbox\" />",
 						'id' => $v ['id'],
-						'name' => $v ['name'],
+						'name' => str_repeat ( "— ", $v ['level'] ) . $v ['name'],
 						'title' => $v ['title'],
 						'status' => $v ['status'] == 1 ? '<span class="label label-success radius">已启用</span>' : '<span class="label radius">已停用</span>',
 						'icon' => '<i class="Hui-iconfont">' . $v ['icon'] . '</i>',
@@ -346,6 +346,10 @@ class AdminController extends CommonController {
 			
 			$this->ajaxReturn ( $result );
 		} else {
+			$authRuleModel = D ( 'AuthRule' );
+			
+			$this->rule_data = $authRuleModel->ruleData ();
+			
 			$this->display ();
 		}
 	}
@@ -401,6 +405,33 @@ class AdminController extends CommonController {
 						'status' => 0,
 						'type' => 'error',
 						'info' => '删除规则失败，ID为：' . rtrim ( $delete_id, '，' ) 
+				);
+			}
+			
+			$this->ajaxReturn ( $result );
+		}
+	}
+	
+	/**
+	 * 检查规则名唯一性
+	 *
+	 * @author lhk(2016/03/01)
+	 */
+	public function checkRuleUnique() {
+		if (IS_AJAX) {
+			$id = ( int ) I ( 'get.id', 0 );
+			$name = I ( 'param' );
+			
+			$authRuleModel = D ( 'AuthRule' );
+			
+			if ($authRuleModel->checkRuleUnique ( $id, $name )) {
+				$result = array (
+						'info' => '',
+						'status' => 'y' 
+				);
+			} else {
+				$result = array (
+						'info' => '该规则已经存在！' 
 				);
 			}
 			

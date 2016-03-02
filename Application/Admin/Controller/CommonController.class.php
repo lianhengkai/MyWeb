@@ -70,7 +70,7 @@ class CommonController extends Controller {
 		);
 		
 		$m_c_a = MODULE_NAME . '/' . CONTROLLER_NAME . '/' . ACTION_NAME;
-		if (! in_array ( $m_c_a, $not_check ) && $this->admin_id != 1) {
+		if (! in_array ( $m_c_a, $not_check ) && $this->admin_id != 1 && ! IS_AJAX) {
 			// 声明auth类
 			$this->auth = new Auth ();
 			if (! $this->auth->check ( $m_c_a, $this->admin_id )) {
