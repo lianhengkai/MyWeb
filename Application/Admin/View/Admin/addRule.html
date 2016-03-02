@@ -9,7 +9,7 @@
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>规则名：</label>
 			<div class="formControls col-5">
-				<input type="text" ajaxurl="{:U('checkRuleUnique')}" class="input-text" id="name" name="name" datatype="*1-80" nullmsg="用户名不能为空">
+				<input type="text" ajaxurl="{:U('checkRuleUnique')}" class="input-text" id="name" name="name" datatype="*1-80" nullmsg="规则名不能为空">
 			</div>
 			<div class="col-4"> </div>
 		</div>
@@ -23,10 +23,13 @@
 		<div class="row cl">
 			<label class="form-label col-3">父规则：</label>
 			<div class="formControls col-5"> 
-				<span class="select-box" style="width:150px;">
-					<select class="select" name="pid" size="1">
+				<span class="select-box" style="width:auto;">
+					<select class="select" name="pid">
 						<option value="0">顶级规则</option>
-						<volist>
+						<volist name="rule_data" id="vo">
+							<if condition="$vo['level'] neq 2">
+								<option value="{$vo.id}">{$vo.level|str_repeat='- ',###}{$vo.title}（{$vo.name}）</option>
+							</if>	
 						</volist>
 					</select>
 				</span> 
@@ -49,16 +52,16 @@
 		<div class="row cl">
 			<label class="form-label col-3">图标：</label>
 			<div class="formControls col-5">
-				<input type="password" placeholder="确认新密码" autocomplete="off" class="input-text" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="admin_pwd" id="admin_pwd2" name="admin_pwd2">
+				<input type="text" autocomplete="off" class="input-text" id="icon" name="icon">
 			</div>
-			<div class="col-4"> </div>
+			<div class="col-4">[ <a href="http://lib.h-ui.net/Hui-iconfont/1.0.7/demo.html" target="_blank">查看图标库，格式：{:htmlspecialchars("&#xe684;");}</a> ]</div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>排序：</label>
 			<div class="formControls col-5">
-				<input type="text" class="input-text" value="" placeholder="" id="sort" name="sort" value="0"  datatype="*" nullmsg="排序不能为空">
+				<input type="number" class="input-text" id="sort" name="sort" value="50" datatype="n">
 			</div>
-			<div class="col-4"> </div>
+			<div class="col-4"></div>
 		</div>
 		<div class="row cl">
 			<label class="form-label col-3"><span class="c-red">*</span>规则表达式：</label>
@@ -78,6 +81,6 @@
 <script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/js/H-ui.admin.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/lib/icheck/jquery.icheck.min.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/Plugins/H-ui/H-ui.admin_2.3.1/lib/Validform/5.3.2/Validform.min.js"></script> 
-<script type="text/javascript" src="__ADMIN__/js/Admin/addAdmin.js"></script>
+<script type="text/javascript" src="__ADMIN__/js/{$Think.const.CONTROLLER_NAME}/{$Think.const.ACTION_NAME}.js"></script>
 </body>
 </html>
