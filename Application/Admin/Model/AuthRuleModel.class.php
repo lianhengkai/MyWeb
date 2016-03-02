@@ -38,57 +38,27 @@ class AuthRuleModel extends Model {
 	protected $pk = 'id';
 	
 	/**
-	 * 添加管理员表登录的验证规则 使用自定义验证规则（动态验证）
-	 *
-	 * @author lhk(2016/01/05)
-	 */
-	public $validate_login = array (
-			array (
-					'admin_username',
-					'require',
-					'登录用户名不能为空' 
-			),
-			array (
-					'admin_pwd',
-					'require',
-					'登录密码不能为空' 
-			),
-			array (
-					'verify',
-					'require',
-					'验证码不能为空' 
-			),
-			array (
-					'verify',
-					'checkVerify',
-					'验证码错误',
-					1,
-					'callback' 
-			) 
-	);
-	
-	/**
 	 * 添加管理员表添加的验证规则 使用自定义验证规则（动态验证）
 	 *
 	 * @author lhk(2016/02/16)
 	 */
 	public $validate_add = array (
 			array (
-					'admin_username',
+					'name',
 					'require',
-					'用户名不能为空' 
+					'规则名不能为空' 
 			),
 			array (
-					'admin_username',
-					'2,16',
-					'用户名请填写2到16位任意字符！',
+					'name',
+					'1,80',
+					'规则名请填写1到80位任意字符！',
 					1,
 					'length' 
 			),
 			array (
-					'admin_username',
+					'name',
 					'',
-					'用户名已经存在！',
+					'规则名已经存在！',
 					1,
 					'unique' 
 			),
@@ -98,59 +68,38 @@ class AuthRuleModel extends Model {
 					'真实姓名不能为空' 
 			),
 			array (
-					'admin_realname',
-					'2,16',
-					'真实姓名请填写2到16位任意字符！',
+					'title',
+					'1,20',
+					'中文名称请填写1到20位任意字符！',
 					1,
 					'length' 
 			),
 			array (
-					'admin_pwd',
+					'pid',
 					'require',
-					'密码不能为空' 
+					'请选择父规则！' 
 			),
 			array (
-					'admin_pwd',
-					'6,20',
-					'密码请填写6到20位任意字符！',
-					1,
-					'length' 
-			),
-			array (
-					'admin_pwd2',
+					'status',
 					'require',
-					'请再输入一次新密码！' 
+					'请选择状态！' 
 			),
 			array (
-					'admin_pwd2',
-					'admin_pwd',
-					'您两次输入的新密码不一致！',
-					1,
-					'confirm' 
-			),
-			array (
-					'admin_sex',
-					'require',
-					'请选择性别！' 
-			),
-			array (
-					'admin_tel',
-					'require',
-					'手机不能为空' 
-			),
-			array (
-					'admin_tel',
-					'/^13[0-9]{9}$|14[0-9]{9}|15[0-9]{9}$|18[0-9]{9}|17[0-9]{9}$/',
-					'请填写手机号码！',
-					1,
-					'regex' 
-			),
-			array (
-					'admin_email',
-					'email',
-					'请输入邮箱！' 
+					'sort',
+					'number',
+					'请填写数字！' 
 			) 
 	);
+	
+	/**
+	 * 钩子函数 _before_insert()
+	 *
+	 * @author lhk(2016/02/16)
+	 */
+	protected function _before_insert(&$data, $options) {
+		// 时间
+		$data ['addtime'] = time ();
+	}
 	
 	/**
 	 * 权限管理数据
@@ -183,6 +132,7 @@ class AuthRuleModel extends Model {
 		}
 		
 		$list = $this->field ( $field )->where ( $where )->bind ( $key )->order ( 'sort' )->select ();
+
 		return $this->_ruleData ( $list );
 	}
 	
@@ -191,12 +141,12 @@ class AuthRuleModel extends Model {
 	 *
 	 * @param array $list需要进行无限极分类的二维数组        	
 	 * @param int $stop_id=0,不需要获取子分类的id        	
-	 * @param int $parent_id=0,需要查询父分类ID,默认为0表示找顶级分类        	
+	 * @param int $pid=0,需要查询父分类ID,默认为0表示找顶级分类        	
 	 * @param int $level=0,默认方法被调用的层级,默认是第一层为0        	
 	 * @return array已经进行无限极分类的二维数组
 	 * @author lhk(2016/02/23)
 	 */
-	private function _ruleData($list, $stop_id = 0, $pid = 0) {
+	private function _ruleData($list, $stop_id = 0, $pid = 0, $level = 0) {
 		// 定义数组保存最终结果
 		static $lists = array ();
 		
@@ -206,10 +156,13 @@ class AuthRuleModel extends Model {
 			if ($v ['id'] != $stop_id) {
 				// 顶级分类: pid == 0
 				if ($v ['pid'] == $pid) {
+					//将当前层级加到商品分类中
+					$v['level'] = $level;
+					
 					$lists [] = $v; // 子分类有可能有自己的子分类
 					                
 					// 递归点: 调用父问题的解决方案解决子问题
-					$this->_ruleData ( $list, $stop_id, $v ['id'] );
+					$this->_ruleData ( $list, $stop_id, $v ['id'], $level + 1 );
 				}
 			}
 		}
@@ -249,5 +202,37 @@ class AuthRuleModel extends Model {
 		);
 		
 		return $this->where ( $where )->bind ( $key )->delete ();
+	}
+	
+	/**
+	 * 检查规则名唯一性
+	 *
+	 * @author lhk(2016/03/01)
+	 */
+	public function checkRuleUnique($id, $name) {
+		$where = array (
+				'name' => ':name',
+				'module' => 'Admin'
+		);
+		$key = array (
+				':name' => array (
+						$name,
+						\PDO::PARAM_STR
+				)
+		);
+	
+		if ($admin_id != 0) {
+			$where ['id'] = array (
+					'NEQ',
+					':id'
+			);
+				
+			$key [':id'] = array (
+					$admin_id,
+					\PDO::PARAM_INT
+			);
+		}
+	
+		return ! ( boolean ) $this->where ( $where )->bind ( $key )->select ();
 	}
 }
