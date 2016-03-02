@@ -10,7 +10,7 @@ Target Server Type    : MariaDB
 Target Server Version : 100107
 File Encoding         : 65001
 
-Date: 2016-02-23 17:14:27
+Date: 2016-03-02 16:40:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -3899,19 +3899,20 @@ CREATE TABLE `my_admin` (
   `admin_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '管理员状态，0为已删除',
   PRIMARY KEY (`admin_id`),
   UNIQUE KEY `admin_username` (`admin_username`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of my_admin
 -- ----------------------------
-INSERT INTO `my_admin` VALUES ('1', 'lhk', 'ecfd886fa8315a216e4e1b1a5ce0a071', '1037337446@qq.com', '连亨凯', '男', '13527657346', '', '27', '192.168.15.60', '1456212596', '1453960340', '1', '1');
-INSERT INTO `my_admin` VALUES ('2', 'root', 'ecfd886fa8315a216e4e1b1a5ce0a071', 'root@qq.com', 'root', '男', 'root', '', '0', '', '0', '1455585180', '1', '1');
-INSERT INTO `my_admin` VALUES ('9', '22', 'c4907bd3d740710fbaa2b6c10a705f0f', '1@qq.com', '22', '女', '13527657346', '', '0', '', '0', '1455614871', '1', '1');
-INSERT INTO `my_admin` VALUES ('5', '111', 'ecfd886fa8315a216e4e1b1a5ce0a071', '11@qq.com', '11', '女', '13527657346', '', '0', '', '0', '1455608089', '1', '1');
-INSERT INTO `my_admin` VALUES ('6', '去weq', '5df0ca6e4898049ba4a3cac9f34b322c', '1@qq.com', '123', '女', '13527657346', '', '0', '', '0', '1455608190', '1', '1');
-INSERT INTO `my_admin` VALUES ('7', 'lhk1', '5df0ca6e4898049ba4a3cac9f34b322c', '1@qq.com', '123', '女', '13527657346', '', '0', '', '0', '1455608349', '0', '0');
-INSERT INTO `my_admin` VALUES ('8', '11', '65e51af2540f8f5cb4eec87a5ee1ed67', '1@qq.com', '111', '女', '13527657346', '', '0', '', '0', '1455608386', '0', '0');
-INSERT INTO `my_admin` VALUES ('10', 'lhk12', 'ecfd886fa8315a216e4e1b1a5ce0a071', '11@qq.com', 'lhk', '女', '13527657346', '123123', '0', '', '0', '1455669731', '1', '1');
+INSERT INTO `my_admin` VALUES ('1', 'lhk', '84ad059a60b4821b96e44f65e7b29670', '1037337446@qq.com', '连亨凯', '男', '13527657346', '', '32', '192.168.15.60', '1456890598', '1453960340', '1', '1');
+INSERT INTO `my_admin` VALUES ('2', 'root', '84ad059a60b4821b96e44f65e7b29670', 'root@qq.com', 'root', '男', 'root', '', '0', '', '0', '1455585180', '1', '1');
+INSERT INTO `my_admin` VALUES ('9', '22', '84ad059a60b4821b96e44f65e7b29670', '1@qq.com', '22', '女', '13527657346', '', '0', '', '0', '1455614871', '1', '1');
+INSERT INTO `my_admin` VALUES ('5', '111', '84ad059a60b4821b96e44f65e7b29670', '11@qq.com', '11', '女', '13527657346', '', '0', '', '0', '1455608089', '1', '1');
+INSERT INTO `my_admin` VALUES ('6', '去weq', '84ad059a60b4821b96e44f65e7b29670', '1@qq.com', '123', '女', '13527657346', '', '0', '', '0', '1455608190', '1', '1');
+INSERT INTO `my_admin` VALUES ('7', 'lhk1', '5df0ca6e4898049ba4a3cac9f34b322c', '1@qq.com', '123', '女', '13527657346', '', '0', '', '0', '1455608349', '0', '1');
+INSERT INTO `my_admin` VALUES ('8', '11', '65e51af2540f8f5cb4eec87a5ee1ed67', '1@qq.com', '111', '女', '13527657346', '', '0', '', '0', '1455608386', '0', '1');
+INSERT INTO `my_admin` VALUES ('10', 'lhk12', '84ad059a60b4821b96e44f65e7b29670', '11@qq.com', 'lhk', '女', '13527657346', '123123', '0', '', '0', '1455669731', '1', '1');
+INSERT INTO `my_admin` VALUES ('11', '12311王企鹅企鹅', '84ad059a60b4821b96e44f65e7b29670', '11@qq.com', '123123', '女', '13527657346', '123123123', '0', '', '0', '1456293187', '1', '1');
 
 -- ----------------------------
 -- Table structure for my_admin_log
@@ -3926,7 +3927,7 @@ CREATE TABLE `my_admin_log` (
   `admin_log_ip` varchar(15) NOT NULL DEFAULT '' COMMENT '操作ip',
   `admin_log_status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '操作状态，0为已删除',
   PRIMARY KEY (`admin_log_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of my_admin_log
@@ -3967,20 +3968,7 @@ INSERT INTO `my_admin_log` VALUES ('38', '1', '管理员管理', '添加管理�
 INSERT INTO `my_admin_log` VALUES ('39', '1', '管理员管理', '添加管理员成功', '1455608190', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('40', '1', '管理员管理', '添加管理员成功', '1455608349', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('41', '1', '管理员管理', '添加管理员成功', '1455608386', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('42', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455612840', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('43', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455612843', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('44', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455612847', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('45', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455612851', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('46', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455612863', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('47', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455612868', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('48', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455612872', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('49', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613121', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('50', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613125', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('51', '1', '系统管理', '登录系统', '1455613261', '192.168.15.214', '1');
-INSERT INTO `my_admin_log` VALUES ('52', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613304', '192.168.15.60', '1');
-INSERT INTO `my_admin_log` VALUES ('53', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613330', '192.168.15.214', '1');
-INSERT INTO `my_admin_log` VALUES ('54', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613333', '192.168.15.214', '1');
-INSERT INTO `my_admin_log` VALUES ('55', '1', '管理员管理', '更改审核状态成功，更改ID为：', '1455613336', '192.168.15.214', '1');
 INSERT INTO `my_admin_log` VALUES ('56', '1', '管理员管理', '添加管理员成功，插入ID为：9', '1455614871', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('57', '1', '管理员管理', '添加管理员成功，插入ID为：10', '1455669731', '192.168.15.214', '1');
 INSERT INTO `my_admin_log` VALUES ('58', '1', '管理员管理', '删除管理员成功，ID为：8', '1455671179', '192.168.15.214', '1');
@@ -3994,6 +3982,30 @@ INSERT INTO `my_admin_log` VALUES ('65', '1', '系统管理', '登录系统', '1
 INSERT INTO `my_admin_log` VALUES ('66', '1', '系统管理', '登录系统', '1456207390', '192.168.15.214', '1');
 INSERT INTO `my_admin_log` VALUES ('67', '0', '系统管理', '退出系统', '1456212580', '192.168.15.60', '1');
 INSERT INTO `my_admin_log` VALUES ('68', '1', '系统管理', '登录系统', '1456212596', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('69', '1', '管理员管理', '添加管理员成功，插入ID为：11', '1456293187', '192.168.15.214', '1');
+INSERT INTO `my_admin_log` VALUES ('72', '1', '系统管理', '登录系统', '1456454938', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('73', '1', '系统管理', '登录系统', '1456713236', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('74', '1', '系统管理', '登录系统', '1456814851', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('81', '1', '管理员管理', '编辑管理员成功，编辑ID为：11', '1456819416', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('82', '1', '管理员管理', '编辑管理员成功，ID为：11', '1456820614', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('83', '1', '管理员管理', '编辑管理员成功，ID为：11', '1456820717', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('84', '1', '管理员管理', '编辑管理员成功，ID为：11', '1456820901', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('85', '1', '管理员管理', '编辑管理员成功，ID为：11', '1456820930', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('86', '1', '管理员管理', '编辑管理员成功，ID为：11', '1456821022', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('87', '1', '管理员管理', '删除管理员成功，ID为：11', '1456821138', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('88', '1', '管理员管理', '删除管理员成功，ID为：10', '1456821138', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('89', '1', '管理员管理', '删除管理员成功，ID为：9', '1456821138', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('90', '1', '管理员管理', '删除管理员成功，ID为：6', '1456821138', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('91', '1', '管理员管理', '删除管理员成功，ID为：5', '1456821138', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('92', '1', '管理员管理', '删除管理员成功，ID为：2', '1456821138', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('93', '1', '管理员管理', '删除规则成功，ID为：1', '1456824016', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('94', '1', '系统管理', '登录系统', '1456879398', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('101', '1', '系统管理', '登录系统', '1456890598', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('102', '1', '管理员管理', '添加规则成功，插入ID为：5', '1456891942', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('103', '1', '管理员管理', '添加规则成功，插入ID为：6', '1456907648', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('104', '1', '管理员管理', '添加规则成功，插入ID为：7', '1456907686', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('105', '1', '管理员管理', '添加规则成功，插入ID为：8', '1456907895', '192.168.15.60', '1');
+INSERT INTO `my_admin_log` VALUES ('106', '1', '管理员管理', '添加规则成功，插入ID为：9', '1456907918', '192.168.15.60', '1');
 
 -- ----------------------------
 -- Table structure for my_auth_group
@@ -4007,7 +4019,7 @@ CREATE TABLE `my_auth_group` (
   `remark` varchar(255) NOT NULL DEFAULT '',
   `addtime` int(10) unsigned NOT NULL DEFAULT '1454137314' COMMENT '添加时间',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户组表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户组表';
 
 -- ----------------------------
 -- Records of my_auth_group
@@ -4024,7 +4036,7 @@ CREATE TABLE `my_auth_group_access` (
   UNIQUE KEY `uid_group_id` (`uid`,`group_id`),
   KEY `uid` (`uid`),
   KEY `group_id` (`group_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='用户组明细表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户组明细表';
 
 -- ----------------------------
 -- Records of my_auth_group_access
@@ -4043,15 +4055,23 @@ CREATE TABLE `my_auth_rule` (
   `status` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '状态：为1正常，为0禁用',
   `condition` char(100) NOT NULL DEFAULT '' COMMENT '规则表达式，为空表示存在就验证，不为空表示按照条件验证',
   `pid` mediumint(8) unsigned NOT NULL DEFAULT '0' COMMENT '父id',
-  `sort` int(10) unsigned NOT NULL DEFAULT '0',
-  `module` enum('Admin') NOT NULL DEFAULT 'Admin',
+  `sort` int(10) unsigned NOT NULL DEFAULT '50' COMMENT '排序,越小权重越大',
+  `module` enum('Admin') NOT NULL DEFAULT 'Admin' COMMENT '模块名',
   `icon` varchar(255) NOT NULL DEFAULT '' COMMENT 'icon图标样式，pid为0时有用',
   `addtime` int(10) unsigned NOT NULL DEFAULT '1454137314' COMMENT '添加时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='规则表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='规则表';
 
 -- ----------------------------
 -- Records of my_auth_rule
 -- ----------------------------
-INSERT INTO `my_auth_rule` VALUES ('1', 'Admin/System/log', '系统日志', '1', '1', '', '0', '0', 'Admin', '&#xe62e;', '1454137314');
+INSERT INTO `my_auth_rule` VALUES ('1', 'Admin/System', '系统管理', '1', '1', '', '0', '12', 'Admin', '&#xe62e;', '1454137314');
+INSERT INTO `my_auth_rule` VALUES ('2', 'Admin/System/log', '系统日志', '1', '1', '', '1', '12', 'Admin', '', '1454137314');
+INSERT INTO `my_auth_rule` VALUES ('3', 'Admin/System/deleteLog', '删除', '1', '1', '', '2', '11', 'Admin', '', '1454137314');
+INSERT INTO `my_auth_rule` VALUES ('4', 'Admin/Admin', '管理员管理', '1', '1', '', '0', '0', 'Admin', '&#xe62d;', '1454137314');
+INSERT INTO `my_auth_rule` VALUES ('5', 'Admin/Admin/admin', '管理员列表', '1', '1', '', '4', '50', 'Admin', '', '1454137314');
+INSERT INTO `my_auth_rule` VALUES ('6', 'Admin/Admin/deleteAdmin', '删除', '1', '1', '', '5', '50', 'Admin', '', '1456907648');
+INSERT INTO `my_auth_rule` VALUES ('7', 'Admin/Admin/addAdmin', '添加', '1', '1', '', '5', '49', 'Admin', '', '1456907686');
+INSERT INTO `my_auth_rule` VALUES ('8', 'Admin/Admin/changeAdminOpen', '状态', '1', '1', '', '5', '50', 'Admin', '', '1456907895');
+INSERT INTO `my_auth_rule` VALUES ('9', 'Admin/Admin/editAdmin', '编辑', '1', '1', '', '5', '49', 'Admin', '', '1456907918');
