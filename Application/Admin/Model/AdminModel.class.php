@@ -416,7 +416,9 @@ class AdminModel extends Model {
 	 * @author lhk(2016/03/01)
 	 */
 	protected function _before_update(&$data, $options) {
-		$data ['admin_pwd'] = my_password ( $data ['admin_pwd'] );
+		if($data ['admin_pwd'] != '') {
+			$data ['admin_pwd'] = my_password ( $data ['admin_pwd'] );
+		}
 	}
 	
 	/**
